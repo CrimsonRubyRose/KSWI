@@ -1,3 +1,41 @@
+# 1. Inženýrství požadavků
+
+## 1.1 Diagramy případů užití (Use Case)
+Tento diagram definuje interakce mezi uživateli a systémem.
+
+```mermaid
+graph LR
+    subgraph Role
+        U[Běžný uživatel]
+        T[Servisní technik]
+        A[Administrátor]
+    end
+
+    subgraph "Systém sdílení aut"
+        U --- UC1(Vyhledat auto)
+        U --- UC2(Rezervovat auto)
+        U --- UC3(Historie jízd)
+
+        T --- UC4(Změnit stav baterie)
+        T --- UC5(Servisní odstávka)
+        T --- UC6(Seznam aut k údržbě)
+
+        A --- UC7(Správa uživatelů)
+        A --- UC8(Fakturace a reporty)
+        A --- UC9(Konfigurace cen)
+    end
+
+flowchart TD
+    Start((Start)) --> Search[Vyhledat auto na mapě]
+    Search --> Select[Vybrat konkrétní vozidlo]
+    Select --> Check{Je auto volné?}
+    Check -- Ne --> Search
+    Check -- Ano --> Reserve[Vytvořit rezervaci]
+    Reserve --> Auth{Autorizace platby}
+    Auth -- Selhala --> Cancel[Zrušit rezervaci]
+    Auth -- OK --> Confirm[Potvrdit rezervaci]
+    Confirm --> End((Konec))
+    Cancel --> End
 ## 1.3 Specifikace funkčních požadavků
 
 | ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
