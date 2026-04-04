@@ -1,7 +1,7 @@
 # 1. Inženýrství požadavků
 
 ## 1.1 Diagramy případů užití (Use Case)
-Tento diagram definuje interakce mezi uživateli a systémem.
+Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
 
 ```mermaid
 graph LR
@@ -12,19 +12,24 @@ graph LR
     end
 
     subgraph "Systém sdílení aut"
-        U --- UC1(Vyhledat auto)
+        U --- UC1(Vyhledat auto na mapě)
         U --- UC2(Rezervovat auto)
-        U --- UC3(Historie jízd)
+        U --- UC3(Zobrazit historii jízd)
 
-        T --- UC4(Změnit stav baterie)
-        T --- UC5(Servisní odstávka)
-        T --- UC6(Seznam aut k údržbě)
+        T --- UC4(Aktualizovat stav baterie)
+        T --- UC5(Nastavit servisní odstávka)
+        T --- UC6(Zobrazit auta k údržbě)
 
-        A --- UC7(Správa uživatelů)
-        A --- UC8(Fakturace a reporty)
-        A --- UC9(Konfigurace cen)
+        A --- UC7(Správa uživatelských účtů)
+        A --- UC8(Fakturace a měsíční reporty)
+        A --- UC9(Konfigurace cenových tarifů)
     end
+```
 
+## 1.2 Diagram aktivit (Proces rezervace)
+Detailní logický průchod systémem při vytváření rezervace vozidla uživatelem.
+
+```mermaid
 flowchart TD
     Start((Start)) --> Search[Vyhledat auto na mapě]
     Search --> Select[Vybrat konkrétní vozidlo]
@@ -36,33 +41,35 @@ flowchart TD
     Auth -- OK --> Confirm[Potvrdit rezervaci]
     Confirm --> End((Konec))
     Cancel --> End
+```
+
 ## 1.3 Specifikace funkčních požadavků
 
 | ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
 |:---|:---|:---|:---:|:---|:---|:---|
-| **F01** | Rezervace vozidla | Uživatel si může zablokovat auto pro sebe. | High | Zákazník | Race condition (2 lidi naráz) | F02 |
-| **F02** | Sledování stavu | Systém eviduje: volné, rezervované, v servisu. | High | Provoz | Špatná synchronizace dat | - |
-| **F03** | Správa uživatelů | Admin může měnit role (Admin/User). | Medium | Zadání | Neoprávněná změna práv | - |
-| **F04** | Integrace map | Zobrazení polohy všech volných aut na mapě. | Medium | UX | Výpadek API mapové služby | F02 |
-| **F05** | Fakturace jízdy | Automatický výpočet ceny po ukončení jízdy. | High | Business | Chyba v GPS (špatné km) | F06 |
-| **F06** | Historie jízd | Uživatel vidí své minulé cesty a výdaje. | Low | Zákazník | Únik osobních dat | - |
-| **F07** | Stav baterie | Systém v reálném čase hlásí % nabití. | High | Technik | Zpoždění dat z vozu | - |
-| **F08** | Ukončení jízdy | Možnost zamknout auto a ukončit pronájem. | High | Zákazník | Auto zůstane odemčené | F01 |
-| **F09** | Blokace neplatičů | Systém zakáže rezervaci při dluhu. | Medium | Fakturace | Falešná pozitivita | F05 |
-| **F10** | Servisní režim | Technik může auto vyřadit z nabídky. | Medium | Technik | Auto "zmizí" pod rukama | F02 |
+| **F01** | Rezervace vozidla | Uživatel si může zablokovat auto pro sebe skrze aplikaci. | High | Zákazník | Race condition (duplicitní rezervace) | F02 |
+| **F02** | Sledování stavu | Systém eviduje stavy: volné, rezervované, v servisu. | High | Provoz | Nekoherentní data v databázi | - |
+| **F03** | Správa uživatelů | Administrátor může měnit role a oprávnění uživatelů. | Medium | Zadání | Neoprávněné zvýšení privilegií | - |
+| **F04** | Integrace map | Zobrazení polohy a dostupnosti aut na mapovém podkladu. | Medium | UX | Výpadek externí mapové služby (API) | F02 |
+| **F05** | Fakturace jízdy | Automatický výpočet ceny a vystavení faktury po jízdě. | High | Business | Chyba ve výpočtu času/vzdálenosti | F06 |
+| **F06** | Historie jízd | Uživatel má přístup k seznamu svých minulých výpůjček. | Low | Zákazník | Únik citlivých osobních údajů | - |
+| **F07** | Stav baterie | Systém v reálném čase monitoruje a zobrazuje % nabití. | High | Technik | Zpoždění telemetrických dat z vozidla | - |
+| **F08** | Ukončení jízdy | Bezpečné ukončení pronájmu a uzamčení vozidla. | High | Zákazník | Auto zůstane fyzicky odemčené | F01 |
+| **F09** | Blokace neplatičů | Automatické zamezení rezervace při neuhrazených dluzích. | Medium | Fakturace | Chybná blokace platícího zákazníka | F05 |
+| **F10** | Servisní režim | Možnost technika vyřadit vozidlo z nabídky pro veřejnost. | Medium | Technik | Nechtěné vyřazení funkčního vozu | F02 |
 
 ## 1.4 Mimofunkční požadavky
 
-1. **Bezpečnost (N01):** Veškerá komunikace mezi aplikací a serverem musí být šifrována pomocí TLS 1.3. (Priorita: High)
-2. **Dostupnost (N02):** Systém musí být dostupný 99,5 % času (SLA). (Priorita: Medium)
-3. **Odezva (N03):** API musí odpovědět na požadavek na rezervaci do 500 ms. (Priorita: Medium)
-4. **GDPR (N04):** Osobní údaje (OP, jméno) musí být uloženy v šifrované databázi. (Priorita: High)
-5. **Auditovatelnost (N05):** Každá změna stavu vozidla musí být logována s časovou značkou a ID uživatele. (Priorita: Low)
+1. **Bezpečnost (N01):** Komunikace mezi klientem a serverem probíhá výhradně přes šifrovaný protokol TLS 1.3. (Priorita: High)
+2. **Dostupnost (N02):** Garantovaná dostupnost systému je 99,5 % v režimu 24/7. (Priorita: Medium)
+3. **Výkon (N03):** Odezva API pro klíčové operace (rezervace) nesmí překročit 500 ms. (Priorita: Medium)
+4. **Ochrana dat (N04):** Systém splňuje požadavky GDPR; citlivá data jsou v DB šifrována (AES-256). (Priorita: High)
+5. **Logování (N05):** Veškeré změny kritických stavů vozidla jsou auditovány s vazbou na ID uživatele. (Priorita: Low)
 
-## 1.5 Konfliktní požadavky a nejasnosti
+## 1.5 Konfliktní požadavky a nejasnosti během analýzy
 
 **Identifikovaná nejasnost:**
-Během analýzy vznikl rozpor mezi požadavkem na **maximální rychlost rezervace** (uživatel chce auto jedním kliknutím) a **požadavkem na platební jistotu** (ověření solventnosti uživatele a platnosti karty trvá několik sekund).
+Během analýzy byl zjištěn konflikt mezi požadavkem na **maximální rychlost rezervace** (okamžitý uživatelský zážitek) a **platební bezpečností** (validace platební karty může trvat několik sekund).
 
 **Navržené řešení:**
-Systém zavede stav **"Optimistická rezervace"**. Auto se uživateli zablokuje okamžitě v UI, zatímco na pozadí běží asynchronní validace platby. Pokud validace selže do 30 sekund, rezervace se zruší a uživatel je informován. Tím zajistíme plynulé UX bez rizika pro firmu.
+Systém implementuje stav **"Optimistická rezervace"**. Vozidlo je v UI zablokováno pro daného uživatele okamžitě, zatímco na pozadí probíhá asynchronní ověření karty. V případě neúspěchu platby je rezervace do 30 sekund automaticky stornována a auto uvolněno zpět do oběhu.
