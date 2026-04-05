@@ -1,32 +1,9 @@
-
 # 1. Inženýrství požadavků
 
 ## 1.1 Diagram případů užití (Use Case)
 Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
 
-```mermaid
-graph LR
-    subgraph Role
-        U[Běžný uživatel]
-        T[Servisní technik]
-        A[Administrátor]
-    end
-
-    subgraph "Systém sdílení aut"
-        U --- UC1(Vyhledat auto na mapě)
-        U --- UC1b(Zobrazit informace a stav auta)
-        U --- UC2(Rezervovat auto)
-        U --- UC3(Zobrazit historii jízd)
-
-        T --- UC4(Zaevidovat nabití baterie)
-        T --- UC5(Odebrat auto z mapy k servisu)
-        T --- UC6(Zobrazit vybitá a rozbitá auta)
-
-        A --- UC7(Zablokovat nebo odblokovat uživatele)
-        A --- UC8(Vyřešit reklamace a faktury)
-        A --- UC9(Změnit cenu za minutu jízdy)
-    end
-```
+![Diagram případů užití](Obrázky/UseCase.png)
 
 ## 1.2 Diagramy aktivit
 Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
@@ -34,116 +11,38 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 ### Role: Běžný uživatel
 
 **UC1: Vyhledat auto na mapě**
-```mermaid
-flowchart TD
-    Start((Start)) --> Open[Otevření mobilní aplikace]
-    Open --> GPS[Načtení aktuální GPS polohy]
-    GPS --> Fetch[Dotaz na server pro volná auta v okolí]
-    Fetch --> Display[Vykreslení bodů na mapě]
-    Display --> End((Konec))
-```
+![Vyhledat auto na mapě](Obrázky/DiagramAktivit_AutonaMap.png)
 
 **UC1b: Zobrazit informace a stav auta**
-```mermaid
-flowchart TD
-    Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
-    Click --> FetchData[Načtení detailů z databáze]
-    FetchData --> Show[Zobrazení SPZ, dojezdu a % baterie]
-    Show --> End((Konec))
-```
+![Zobrazit informace a stav auta](Obrázky/DiagramAktivit_InformaceAStavAuta.png)
 
 **UC2: Rezervovat auto**
-```mermaid
-flowchart TD
-    Start((Start)) --> Select[Uživatel klikne na Rezervovat]
-    Select --> Check{Je auto stále volné?}
-    Check -- Ne --> Error[Zobrazení chyby: Auto je obsazené]
-    Check -- Ano --> Lock[Dočasná blokace vozidla v DB]
-    Lock --> Pay{Ověření platební karty}
-    Pay -- Zamítnuto --> Cancel[Zrušení blokace]
-    Pay -- Schváleno --> Confirm[Potvrzení rezervace a spuštění odpočtu]
-    Confirm --> End((Konec))
-    Error --> End
-    Cancel --> End
-```
+![Rezervovat auto](Obrázky/DiagramAktivit_autorezervace.png)
 
 **UC3: Zobrazit historii jízd**
-```mermaid
-flowchart TD
-    Start((Start)) --> Profile[Otevření profilu uživatele]
-    Profile --> ClickHistory[Kliknutí na 'Moje jízdy']
-    ClickHistory --> FetchDB[Systém načte data z databáze]
-    FetchDB --> DisplayList[Zobrazení seznamu s cenami a trasami]
-    DisplayList --> End((Konec))
-```
+![Zobrazit historii jízd](Obrázky/DiagramAktivit_ZobrazithistoriiJízd.png)
 
 ### Role: Servisní technik
 
 **UC4: Zaevidovat nabití baterie**
-```mermaid
-flowchart TD
-    Start((Start)) --> Plug[Technik připojí auto do nabíječky]
-    Plug --> Scan[Naskenuje QR kód auta v servisní aplikaci]
-    Scan --> Confirm[Potvrdí zahájení nabíjení]
-    Confirm --> UpdateStatus[Systém změní stav na 'Nabíjí se']
-    UpdateStatus --> End((Konec))
-```
+![Zaevidovat nabití baterie](Obrázky/DiagramAktivit_ZaevidovatBaterie.png)
 
 **UC5: Odebrat auto z mapy k servisu**
-```mermaid
-flowchart TD
-    Start((Start)) --> FindCar[Nalezení poškozeného auta v aplikaci]
-    FindCar --> ClickService[Kliknutí na 'Přepnout do servisu']
-    ClickService --> Reason[Zadání důvodu odstávky]
-    Reason --> UpdateDB[Auto se v DB přepne na 'Mimo provoz']
-    UpdateDB --> Hide[Auto zmizí z mapy běžným uživatelům]
-    Hide --> End((Konec))
-```
+![Odebrat auto z mapy k servisu](Obrázky/DiagramAktivit_OdebratAutazMapy.png)
 
 **UC6: Zobrazit vybitá a rozbitá auta**
-```mermaid
-flowchart TD
-    Start((Start)) --> OpenApp[Otevření servisního panelu]
-    OpenApp --> Filter[Zapnutí filtru 'Kritický stav']
-    Filter --> Query[Systém vyhledá auta s baterií pod 15 % nebo nahlášenou závadou]
-    Query --> ShowList[Zobrazení seznamu vozidel k řešení]
-    ShowList --> End((Konec))
-```
+![Zobrazit vybitá a rozbitá auta](Obrázky/DiagramAktivit_ZobrazitVybitáaRozbitáAuta.png)
 
 ### Role: Administrátor
 
 **UC7: Zablokovat nebo odblokovat uživatele**
-```mermaid
-flowchart TD
-    Start((Start)) --> SearchUser[Vyhledání uživatele podle jména/ID]
-    SearchUser --> SelectAction[Zvolení akce: Blokovat/Odblokovat]
-    SelectAction --> Confirm[Potvrzení administrátorem]
-    Confirm --> UpdateAcc[Aktualizace stavu účtu v databázi]
-    UpdateAcc --> End((Konec))
-```
+![Zablokovat nebo odblokovat uživatele](Obrázky/DiagramAktivit_ZablokovatOdblokovat.png)
 
 **UC8: Vyřešit reklamace a faktury**
-```mermaid
-flowchart TD
-    Start((Start)) --> OpenTicket[Otevření podané reklamace]
-    OpenTicket --> CheckRide[Kontrola GPS logů a času jízdy]
-    CheckRide --> Decision{Uznat reklamaci?}
-    Decision -- Ne --> Reject[Zamítnutí s odůvodněním]
-    Decision -- Ano --> Refund[Vrácení peněz na kartu uživatele]
-    Refund --> CloseTicket[Uzavření případu]
-    Reject --> CloseTicket
-    CloseTicket --> End((Konec))
-```
+![Vyřešit reklamace a faktury](Obrázky/DiagramAktivit_VyřešitReklamaceFaktury.png)
 
 **UC9: Změnit cenu za minutu jízdy**
-```mermaid
-flowchart TD
-    Start((Start)) --> OpenSettings[Otevření globálního nastavení cen]
-    OpenSettings --> InputPrice[Zadání nové ceny za minutu]
-    InputPrice --> Save[Uložení změn]
-    Save --> UpdateSystem[Propagace nové ceny do systému pro další jízdy]
-    UpdateSystem --> End((Konec))
-```
+![Změnit cenu za minutu jízdy](Obrázky/DiagramAktivit_ZměnitCenuZaMinutu.png)
 
 ## 1.3 Specifikace funkčních požadavků
 
