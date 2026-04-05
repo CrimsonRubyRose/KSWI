@@ -32,7 +32,29 @@ A --- UC7(Zablokovat nebo odblokovat uživatele)
 ## 1.1 Diagram případů užití (Use Case)
 Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
 
-![Diagram případů užití](diagram_usecase.png)
+```mermaid
+graph LR
+    subgraph Role
+        U[Běžný uživatel]
+        T[Servisní technik]
+        A[Administrátor]
+    end
+
+    subgraph "Systém sdílení aut"
+        U --- UC1(Vyhledat auto na mapě)
+        U --- UC1b(Zobrazit informace a stav auta)
+        U --- UC2(Rezervovat auto)
+        U --- UC3(Zobrazit historii jízd)
+
+        T --- UC4(Zaevidovat nabití baterie)
+        T --- UC5(Odebrat auto z mapy k servisu)
+        T --- UC6(Zobrazit vybitá a rozbitá auta)
+
+        A --- UC7(Zablokovat nebo odblokovat uživatele)
+        A --- UC8(Vyřešit reklamace a faktury)
+        A --- UC9(Změnit cenu za minutu jízdy)
+    end
+```
 
 ## 1.2 Diagramy aktivit
 Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
@@ -40,38 +62,116 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 ### Role: Běžný uživatel
 
 **UC1: Vyhledat auto na mapě**
-![Vyhledat auto](uc1_vyhledat.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> Open[Otevření mobilní aplikace]
+    Open --> GPS[Načtení aktuální GPS polohy]
+    GPS --> Fetch[Dotaz na server pro volná auta v okolí]
+    Fetch --> Display[Vykreslení bodů na mapě]
+    Display --> End((Konec))
+```
 
 **UC1b: Zobrazit informace a stav auta**
-![Zobrazit informace](uc1b_informace.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
+    Click --> FetchData[Načtení detailů z databáze]
+    FetchData --> Show[Zobrazení SPZ, dojezdu a % baterie]
+    Show --> End((Konec))
+```
 
 **UC2: Rezervovat auto**
-![Rezervovat auto](uc2_rezervovat.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> Select[Uživatel klikne na Rezervovat]
+    Select --> Check{Je auto stále volné?}
+    Check -- Ne --> Error[Zobrazení chyby: Auto je obsazené]
+    Check -- Ano --> Lock[Dočasná blokace vozidla v DB]
+    Lock --> Pay{Ověření platební karty}
+    Pay -- Zamítnuto --> Cancel[Zrušení blokace]
+    Pay -- Schváleno --> Confirm[Potvrzení rezervace a spuštění odpočtu]
+    Confirm --> End((Konec))
+    Error --> End
+    Cancel --> End
+```
 
 **UC3: Zobrazit historii jízd**
-![Historie jízd](uc3_historie.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> Profile[Otevření profilu uživatele]
+    Profile --> ClickHistory[Kliknutí na 'Moje jízdy']
+    ClickHistory --> FetchDB[Systém načte data z databáze]
+    FetchDB --> DisplayList[Zobrazení seznamu s cenami a trasami]
+    DisplayList --> End((Konec))
+```
 
 ### Role: Servisní technik
 
 **UC4: Zaevidovat nabití baterie**
-![Nabití baterie](uc4_nabiti.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> Plug[Technik připojí auto do nabíječky]
+    Plug --> Scan[Naskenuje QR kód auta v servisní aplikaci]
+    Scan --> Confirm[Potvrdí zahájení nabíjení]
+    Confirm --> UpdateStatus[Systém změní stav na 'Nabíjí se']
+    UpdateStatus --> End((Konec))
+```
 
 **UC5: Odebrat auto z mapy k servisu**
-![Odebrat do servisu](uc5_servis.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> FindCar[Nalezení poškozeného auta v aplikaci]
+    FindCar --> ClickService[Kliknutí na 'Přepnout do servisu']
+    ClickService --> Reason[Zadání důvodu odstávky]
+    Reason --> UpdateDB[Auto se v DB přepne na 'Mimo provoz']
+    UpdateDB --> Hide[Auto zmizí z mapy běžným uživatelům]
+    Hide --> End((Konec))
+```
 
 **UC6: Zobrazit vybitá a rozbitá auta**
-![Zobrazit auta k údržbě](uc6_udrzba.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> OpenApp[Otevření servisního panelu]
+    OpenApp --> Filter[Zapnutí filtru 'Kritický stav']
+    Filter --> Query[Systém vyhledá auta s baterií pod 15 % nebo nahlášenou závadou]
+    Query --> ShowList[Zobrazení seznamu vozidel k řešení]
+    ShowList --> End((Konec))
+```
 
 ### Role: Administrátor
 
 **UC7: Zablokovat nebo odblokovat uživatele**
-![Správa uživatelů](uc7_uzivatele.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> SearchUser[Vyhledání uživatele podle jména/ID]
+    SearchUser --> SelectAction[Zvolení akce: Blokovat/Odblokovat]
+    SelectAction --> Confirm[Potvrzení administrátorem]
+    Confirm --> UpdateAcc[Aktualizace stavu účtu v databázi]
+    UpdateAcc --> End((Konec))
+```
 
 **UC8: Vyřešit reklamace a faktury**
-![Řešení reklamací](uc8_reklamace.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> OpenTicket[Otevření podané reklamace]
+    OpenTicket --> CheckRide[Kontrola GPS logů a času jízdy]
+    CheckRide --> Decision{Uznat reklamaci?}
+    Decision -- Ne --> Reject[Zamítnutí s odůvodněním]
+    Decision -- Ano --> Refund[Vrácení peněz na kartu uživatele]
+    Refund --> CloseTicket[Uzavření případu]
+    Reject --> CloseTicket
+    CloseTicket --> End((Konec))
+```
 
 **UC9: Změnit cenu za minutu jízdy**
-![Konfigurace cen](uc9_ceny.png)
+```mermaid
+flowchart TD
+    Start((Start)) --> OpenSettings[Otevření globálního nastavení cen]
+    OpenSettings --> InputPrice[Zadání nové ceny za minutu]
+    InputPrice --> Save[Uložení změn]
+    Save --> UpdateSystem[Propagace nové ceny do systému pro další jízdy]
+    UpdateSystem --> End((Konec))
+```
 
 ## 1.3 Specifikace funkčních požadavků
 
@@ -96,13 +196,6 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 4. **Ochrana dat (N04):** Systém splňuje požadavky GDPR; citlivá data jsou v DB šifrována (AES-256). (Priorita: High)
 5. **Logování (N05):** Veškeré změny kritických stavů vozidla jsou auditovány s vazbou na ID uživatele. (Priorita: Low)
 
-## 1.5 Konfliktní požadavky a nejasnosti během analýzy
-
-**Identifikovaná nejasnost:**
-Během analýzy byl zjištěn konflikt mezi požadavkem na **maximální rychlost rezervace** (okamžitý uživatelský zážitek) a **platební bezpečností** (validace platební karty může trvat několik sekund).
-
-**Navržené řešení:**
-Systém implementuje stav **"Optimistická rezervace"**. Vozidlo je v UI zablokováno pro daného uživatele okamžitě, zatímco na pozadí probíhá asynchronní ověření karty. V případě neúspěchu platby je rezervace do 30 sekund automaticky stornována a auto uvolněno zpět do oběhu.
 ## 1.5 Konfliktní požadavky a nejasnosti během analýzy
 
 **Identifikovaná nejasnost:**
