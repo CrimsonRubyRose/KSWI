@@ -1,31 +1,3 @@
-# 1. Inženýrství požadavků
-
-## 1.1 Diagramy případů užití (Use Case)
-Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
-
-```mermaid
-graph LR
-    subgraph Role
-        U[Běžný uživatel]
-        T[Servisní technik]
-        A[Administrátor]
-    end
-
-    subgraph "Systém sdílení aut"
-        U --- UC1(Vyhledat auto na mapě)
-        U --- UC1b(Zobrazit informace a stav auta)
-        U --- UC2(Rezervovat auto)
-        U --- UC3(Zobrazit historii jízd)
-
-        T --- UC4(Aktualizovat stav baterie)
-        T --- UC5(Odebrat auto z mapy k servisu)
-        T --- UC6(Zobrazit auta k údržbě)
-
-A --- UC7(Zablokovat nebo odblokovat uživatele)
-        A --- UC8(Vyřešit reklamace a faktury)
-        A --- UC9(Změnit cenu za minutu jízdy)
-    end
-```
 
 # 1. Inženýrství požadavků
 
