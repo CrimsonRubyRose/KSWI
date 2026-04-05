@@ -13,35 +13,65 @@ graph LR
 
     subgraph "Systém sdílení aut"
         U --- UC1(Vyhledat auto na mapě)
+        U --- UC1b(Zobrazit informace a stav auta)
         U --- UC2(Rezervovat auto)
         U --- UC3(Zobrazit historii jízd)
 
         T --- UC4(Aktualizovat stav baterie)
-        T --- UC5(Nastavit servisní odstávka)
+        T --- UC5(Odebrat auto z mapy k servisu)
         T --- UC6(Zobrazit auta k údržbě)
 
-        A --- UC7(Správa uživatelských účtů)
-        A --- UC8(Fakturace a měsíční reporty)
-        A --- UC9(Konfigurace cenových tarifů)
+A --- UC7(Zablokovat nebo odblokovat uživatele)
+        A --- UC8(Vyřešit reklamace a faktury)
+        A --- UC9(Změnit cenu za minutu jízdy)
     end
 ```
 
-## 1.2 Diagram aktivit (Proces rezervace)
-Detailní logický průchod systémem při vytváření rezervace vozidla uživatelem.
+# 1. Inženýrství požadavků
 
-```mermaid
-flowchart TD
-    Start((Start)) --> Search[Vyhledat auto na mapě]
-    Search --> Select[Vybrat konkrétní vozidlo]
-    Select --> Check{Je auto volné?}
-    Check -- Ne --> Search
-    Check -- Ano --> Reserve[Vytvořit rezervaci]
-    Reserve --> Auth{Autorizace platby}
-    Auth -- Selhala --> Cancel[Zrušit rezervaci]
-    Auth -- OK --> Confirm[Potvrdit rezervaci]
-    Confirm --> End((Konec))
-    Cancel --> End
-```
+## 1.1 Diagram případů užití (Use Case)
+Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
+
+![Diagram případů užití](diagram_usecase.png)
+
+## 1.2 Diagramy aktivit
+Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
+
+### Role: Běžný uživatel
+
+**UC1: Vyhledat auto na mapě**
+![Vyhledat auto](uc1_vyhledat.png)
+
+**UC1b: Zobrazit informace a stav auta**
+![Zobrazit informace](uc1b_informace.png)
+
+**UC2: Rezervovat auto**
+![Rezervovat auto](uc2_rezervovat.png)
+
+**UC3: Zobrazit historii jízd**
+![Historie jízd](uc3_historie.png)
+
+### Role: Servisní technik
+
+**UC4: Zaevidovat nabití baterie**
+![Nabití baterie](uc4_nabiti.png)
+
+**UC5: Odebrat auto z mapy k servisu**
+![Odebrat do servisu](uc5_servis.png)
+
+**UC6: Zobrazit vybitá a rozbitá auta**
+![Zobrazit auta k údržbě](uc6_udrzba.png)
+
+### Role: Administrátor
+
+**UC7: Zablokovat nebo odblokovat uživatele**
+![Správa uživatelů](uc7_uzivatele.png)
+
+**UC8: Vyřešit reklamace a faktury**
+![Řešení reklamací](uc8_reklamace.png)
+
+**UC9: Změnit cenu za minutu jízdy**
+![Konfigurace cen](uc9_ceny.png)
 
 ## 1.3 Specifikace funkčních požadavků
 
@@ -66,6 +96,13 @@ flowchart TD
 4. **Ochrana dat (N04):** Systém splňuje požadavky GDPR; citlivá data jsou v DB šifrována (AES-256). (Priorita: High)
 5. **Logování (N05):** Veškeré změny kritických stavů vozidla jsou auditovány s vazbou na ID uživatele. (Priorita: Low)
 
+## 1.5 Konfliktní požadavky a nejasnosti během analýzy
+
+**Identifikovaná nejasnost:**
+Během analýzy byl zjištěn konflikt mezi požadavkem na **maximální rychlost rezervace** (okamžitý uživatelský zážitek) a **platební bezpečností** (validace platební karty může trvat několik sekund).
+
+**Navržené řešení:**
+Systém implementuje stav **"Optimistická rezervace"**. Vozidlo je v UI zablokováno pro daného uživatele okamžitě, zatímco na pozadí probíhá asynchronní ověření karty. V případě neúspěchu platby je rezervace do 30 sekund automaticky stornována a auto uvolněno zpět do oběhu.
 ## 1.5 Konfliktní požadavky a nejasnosti během analýzy
 
 **Identifikovaná nejasnost:**
