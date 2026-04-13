@@ -4,12 +4,8 @@
 Pro vytvořenou komponentu a API bylo napsáno 5 testů pomocí frameworku `pytest`. Testy pokrývají jak happy-path (úspěšná rezervace), tak chybové stavy (rezervace obsazeného nebo neexistujícího vozidla). Zdrojový kód testů je součástí odevzdaného repozitáře v souboru `test_main.py`.
 
 **Výstup z úspěšného spuštění testů:**
-..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_get_cars_returns_200 PASSED [ 20%] 
-..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_reserve_available_car_success PASSED [ 40%]
-..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_reserve_unavailable_car_fails PASSED [ 60%]
-..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_reserve_nonexistent_car_fails PASSED [ 80%]
-..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_database_state_changes_after_reservation PASSED [100%] 
-================================================================================================================ 5 passed in 0.42s 
+
+.....5 passed in 0.42s 
 
 ## 5.2 Plán testování celého systému
 
