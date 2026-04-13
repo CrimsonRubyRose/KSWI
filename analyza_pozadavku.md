@@ -164,7 +164,7 @@ flowchart TD
 1. **Bezpečnost (N01):** Komunikace mezi aplikací klienta a serverem probíhá výhradně přes šifrovaný protokol TLS (Transport Layer Security). (Priorita: High)
 2. **Dostupnost (N02):** Systém musí být pro uživatele dostupný v režimu 24/7 s garantovanou dostupností 99,9 % času (minimalizace neplánovaných výpadků). (Priorita: Medium)
 3. **Robustnost (N03):** Systém je odolný proti hardwarovým chybám a plánované údržbě, při lokálním výpadku primárního serveru plynule přebírají provoz záložní (backup) servery. (Priorita: Medium)
-4. **Ochrana dat (N04):** Systém plně splňuje požadavky GDPR; citlivá osobní data (např. hesla, platební údaje) jsou v databázi šifrována pomocí standardu SHA-256. (Priorita: High)
+4. **Ochrana dat (N04):** Systém plně splňuje požadavky GDPR, citlivá osobní data (např. hesla, platební údaje) jsou v databázi šifrována pomocí standardu SHA-256. (Priorita: High)
 5. **Logování (N05):** Veškeré změny stavů vozidla (např. rezervace, servisní odstávka) jsou logovány/uložené s přímou vazbou na ID uživatele. (Priorita: Low)
 
 ## 1.5 Konfliktní požadavky a nejasnosti během analýzy
