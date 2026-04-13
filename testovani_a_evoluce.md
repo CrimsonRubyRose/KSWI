@@ -5,7 +5,7 @@ Pro vytvořenou komponentu a API bylo napsáno 5 testů pomocí frameworku `pyte
 
 **Výstup z úspěšného spuštění testů:**
 
-.....5 passed in 0.42s 
+========================================================================= 5 passed, 1 warning in 0.05s =========================================================================
 
 ## 5.2 Plán testování celého systému
 
