@@ -2,10 +2,10 @@
 
 ## 2.1 Volba architektury a její zdůvodnění
 
-Pro návrh systému správy sdílených elektromobilů byla zvolena **Vrstvená architektura (Layered Architecture)** (ve formě modulárního monolitu). 
+Pro návrh systému správy sdílených elektromobilů jsem zvolila **Vrstvenou architektura (Layered Architecture)**.
 
 **Zdůvodnění volby:**
-1. **Oddělení odpovědností (Separation of Concerns):** Architektura jasně odděluje prezentační vrstvu (REST API / Konzole), vrstvu obchodní logiky (servisy) a datovou vrstvu. To umožňuje nezávislý vývoj a snadnější testování jednotlivých komponent.
+1. **Oddělení odpovědností (Separation of Concerns):** Architektura jasně odděluje prezentační vrstvu (REST API / Konzole), vrstvu obchodní logiky (servisy) a datovou vrstvu (Databáze). To umožňuje nezávislý vývoj a snadnější testování jednotlivých komponent.
 2. **Přiměřenost zadání:** Využití mikroslužeb by pro tento rozsah systému (a jeho částečnou implementaci) představovalo zbytečnou technologickou a síťovou režii (tzv. over-engineering). Monolitický přístup s vrstvami je efektivnější na nasazení i údržbu.
 3. **Snadná evoluce:** Pokud by v budoucnu systém masivně narostl, lze jednotlivé dobře zapouzdřené vrstvy nebo moduly (např. Rezervační službu) poměrně snadno vyjmout a transformovat do samostatné mikroslužby.
 
