@@ -161,16 +161,16 @@ flowchart TD
 
 ## 1.4 Mimofunkční požadavky
 
-1. **Bezpečnost (N01):** Komunikace mezi klientem a serverem probíhá výhradně přes šifrovaný protokol TLS 1.3. (Priorita: High)
-2. **Dostupnost (N02):** Garantovaná dostupnost systému je 99,5 % v režimu 24/7. (Priorita: Medium)
-3. **Výkon (N03):** Odezva API pro klíčové operace (rezervace) nesmí překročit 500 ms. (Priorita: Medium)
-4. **Ochrana dat (N04):** Systém splňuje požadavky GDPR; citlivá data jsou v DB šifrována (AES-256). (Priorita: High)
-5. **Logování (N05):** Veškeré změny kritických stavů vozidla jsou auditovány s vazbou na ID uživatele. (Priorita: Low)
+1. **Bezpečnost (N01):** Komunikace mezi aplikací klienta a serverem probíhá výhradně přes šifrovaný protokol TLS (Transport Layer Security). (Priorita: High)
+2. **Dostupnost (N02):** Systém musí být pro uživatele dostupný v režimu 24/7 s garantovanou dostupností 99,9 % času (minimalizace neplánovaných výpadků). (Priorita: Medium)
+3. **Robustnost (N03):** Systém je odolný proti hardwarovým chybám a plánované údržbě, při lokálním výpadku primárního serveru plynule přebírají provoz záložní (backup) servery. (Priorita: Medium)
+4. **Ochrana dat (N04):** Systém plně splňuje požadavky GDPR; citlivá osobní data (např. hesla, platební údaje) jsou v databázi šifrována pomocí standardu SHA-256. (Priorita: High)
+5. **Logování (N05):** Veškeré změny stavů vozidla (např. rezervace, servisní odstávka) jsou logovány/uložené s přímou vazbou na ID uživatele. (Priorita: Low)
 
 ## 1.5 Konfliktní požadavky a nejasnosti během analýzy
 
 **Identifikovaná nejasnost:**
-Během analýzy byl zjištěn konflikt mezi požadavkem na **maximální rychlost rezervace** (okamžitý uživatelský zážitek) a **platební bezpečností** (validace platební karty může trvat několik sekund).
+Během analýzy byl zjištěn konflikt mezi požadavkem na **Zobrazení historie jízd (F06)** a striktní **Ochranou dat podle GDPR (N04)**. Systém musí na jednu stranu zaznamenávat trasu, ale dlouhodobé uchovávání přesných GPS bodů pohybu konkrétní osoby je z hlediska ochrany soukromí problematické.
 
 **Navržené řešení:**
-Systém implementuje stav **"Optimistická rezervace"**. Vozidlo je v UI zablokováno pro daného uživatele okamžitě, zatímco na pozadí probíhá asynchronní ověření karty. V případě neúspěchu platby je rezervace do 30 sekund automaticky stornována a auto uvolněno zpět do oběhu.
+Systém bude uchovávat detailní GPS trasu na mapě pouze po dobu 30 dnů od ukončení jízdy (kvůli bodu UC8 - Vyřešení případných reklamací). Poté se detailní souřadnice z databáze automaticky nevratně smažou a v historii uživatele (F06) zůstane pouze agregovaný záznam: Datum, celkový čas, start, cíl, ujetá vzdálenost a cena.
