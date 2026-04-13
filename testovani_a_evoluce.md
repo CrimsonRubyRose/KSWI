@@ -5,13 +5,18 @@ Pro vytvořenou komponentu a API bylo napsáno 5 testů pomocí frameworku `pyte
 
 **Výstup z úspěšného spuštění testů:**
 
-test_main.py::test_reserve_available_car_success PASSED                                                                                                                              [ 20%]
-test_main.py::test_release_car_to_available PASSED                                                                                                                                   [ 40%] 
-test_main.py::test_send_to_service_and_fix_it PASSED                                                                                                                                 [ 60%]
-test_main.py::test_reserve_nonexistent_car_fails PASSED                                                                                                                              [ 80%] 
-test_main.py::test_release_nonexistent_car_fails PASSED                                                                                                                              [100%] 
+============================= test session starts =============================
+platform win32 -- Python 3.13.0, pytest-8.3.3, pluggy-1.5.0
+rootdir: C:\Users\Admin\Desktop\Schule\KSWI-main
+collected 5 items
 
-==================================================================================== 5 passed in 0.04s ==================================================================================== 
+test_main.py::test_reserve_available_car_success PASSED          [ 20%]
+test_main.py::test_release_car_to_available PASSED               [ 40%]
+test_main.py::test_send_to_service_and_fix_it PASSED             [ 60%]
+test_main.py::test_reserve_nonexistent_car_fails PASSED          [ 80%]
+test_main.py::test_release_nonexistent_car_fails PASSED          [100%]
+
+============================== 5 passed in 0.04s ==============================
 
 ## 5.2 Plán testování celého systému
 
