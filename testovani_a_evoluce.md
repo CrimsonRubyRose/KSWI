@@ -4,11 +4,14 @@
 Pro vytvořenou komponentu a API bylo napsáno 5 testů pomocí frameworku `pytest`. Testy pokrývají jak happy-path (úspěšná rezervace), tak chybové stavy (rezervace obsazeného nebo neexistujícího vozidla). Zdrojový kód testů je součástí odevzdaného repozitáře v souboru `test_main.py`.
 
 **Výstup z úspěšného spuštění testů:**
+### Výsledek testování komponenty ReservationService
 
+```text
 ============================= test session starts =============================
-platform win32 -- Python 3.13.0, pytest-8.3.3, pluggy-1.5.0
+platform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0
 rootdir: C:\Users\Admin\Desktop\Schule\KSWI-main
-collected 5 items
+plugins: anyio-4.13.0
+collected 5 items          
 
 test_main.py::test_reserve_available_car_success PASSED          [ 20%]
 test_main.py::test_release_car_to_available PASSED               [ 40%]
@@ -16,7 +19,8 @@ test_main.py::test_send_to_service_and_fix_it PASSED             [ 60%]
 test_main.py::test_reserve_nonexistent_car_fails PASSED          [ 80%]
 test_main.py::test_release_nonexistent_car_fails PASSED          [100%]
 
-============================== 5 passed in 0.04s ==============================
+============================== 5 passed in 0.04s ============================== 
+```
 
 ## 5.2 Plán testování celého systému
 
