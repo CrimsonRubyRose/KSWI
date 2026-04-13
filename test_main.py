@@ -1,8 +1,11 @@
 import pytest
 from fastapi.testclient import TestClient
-from main import app, db_cars # Předpokládám, že se tvůj soubor jmenuje main.py
+from main import app, db_cars  # Předpokládá se, že hlavní kód je v main.py
 
-client = TestClient(app)
+# Fixture vytvoří testovacího klienta v kontrolovaném prostředí
+@pytest.fixture
+def client():
+    return TestClient(app)
 
 def setup_function():
     """Reset databáze před každým testem, abychom měli jistotu výsledků."""
@@ -13,21 +16,20 @@ def setup_function():
         3: {"id": 3, "model": "Hyundai Ioniq 5", "status": "rezervováno", "battery": 60}
     })
 
-def test_reserve_available_car_success():
-    """Test: Úspěšná rezervace volného vozidla."""
+def test_reserve_available_car_success(client):
+    """Test 1: Úspěšná rezervace volného vozidla."""
     response = client.post("/reserve", json={"user_id": 42, "car_id": 1})
     assert response.status_code == 200
     assert db_cars[1]["status"] == "rezervováno"
 
-def test_release_car_to_available():
-    """Test: Uvolnění rezervovaného auta zpět do oběhu."""
-    # Nejdřív uvolníme auto 3, které je v DB jako rezervované
-    response = client.post("/release?car_id=3")
+def test_release_car_to_available(client):
+    """Test 2: Uvolnění rezervovaného auta zpět do oběhu."""
+    response = client.post(f"/release?car_id=3")
     assert response.status_code == 200
     assert db_cars[3]["status"] == "volné"
 
-def test_send_to_service_and_fix_it():
-    """Test: Poslání auta do servisu a jeho následné opravení (uvolnění)."""
+def test_send_to_service_and_fix_it(client):
+    """Test 3: Poslání auta do servisu a jeho následné opravení."""
     # 1. Pošleme volné auto do servisu
     response = client.post("/service/1?reason=Defekt")
     assert response.status_code == 200
@@ -37,21 +39,22 @@ def test_send_to_service_and_fix_it():
     res_fail = client.post("/reserve", json={"user_id": 99, "car_id": 1})
     assert res_fail.status_code == 400
 
-    # 3. Opravíme ho (release)
-    client.post("/release?car_id=1")
+    # 3. Opravíme ho (uvolníme zpět do provozu)
+    client.post(f"/release?car_id=1")
     assert db_cars[1]["status"] == "volné"
 
-def test_reserve_nonexistent_car_fails():
-    """Test: Pokus o rezervaci neexistujícího auta."""
+def test_reserve_nonexistent_car_fails(client):
+    """Test 4: Pokus o rezervaci neexistujícího auta."""
     response = client.post("/reserve", json={"user_id": 42, "car_id": 999})
-    assert response.status_code == 400 # Tvůj kód vrací 400 ValueError
+    assert response.status_code == 400
 
-def test_release_nonexistent_car_fails():
-    """Test: Pokus o uvolnění auta, které neexistuje (ID 999)."""
-    response = client.post("/release?car_id=999")
+def test_release_nonexistent_car_fails(client):
+    """Test 5: Pokus o uvolnění auta, které neexistuje."""
+    response = client.post(f"/release?car_id=999")
     assert response.status_code == 404
     assert "nenalezeno" in response.json()["detail"]
 
 if __name__ == "__main__":
-    import pytest
-    pytest.main([__file__])
+    # Spuštění testů přímo ze skriptu
+    # Přidáno ignorování varování protože si pytest stěžuje že je modul už importovaný. (Triviální a nedůležité) 
+    pytest.main(["-v", "-W", "ignore::pytest.PytestAssertRewriteWarning", __file__])
