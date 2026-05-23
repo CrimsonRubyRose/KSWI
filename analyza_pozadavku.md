@@ -32,7 +32,7 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 
 ### Role: Běžný uživatel
 
-**UC1: Vyhledat auto na mapě**
+**UC Bežného uživatele 1: Vyhledat auto na mapě**
 ```mermaid
 flowchart TD
     Start((Start)) --> Open[Otevření mobilní aplikace]
@@ -42,7 +42,7 @@ flowchart TD
     Display --> End((Konec))
 ```
 
-**UC1b: Zobrazit informace a stav auta**
+**UC Bežného uživatele 1.1: Zobrazit informace a stav auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
@@ -51,7 +51,7 @@ flowchart TD
     Show --> End((Konec))
 ```
 
-**UC2: Rezervovat auto**
+**UC Bežného uživatele 2: Rezervovat auto**
 ```mermaid
 flowchart TD
     Start((Start)) --> Select[Uživatel klikne na Rezervovat]
@@ -66,7 +66,7 @@ flowchart TD
     Cancel --> End
 ```
 
-**UC3: Zobrazit historii jízd**
+**UC Bežného uživatele 3: Zobrazit historii jízd**
 ```mermaid
 flowchart TD
     Start((Start)) --> Profile[Otevření profilu uživatele]
@@ -78,7 +78,7 @@ flowchart TD
 
 ### Role: Servisní technik
 
-**UC4: Zaevidovat nabití baterie**
+**UC Servisního technika 1: Zaevidovat nabití baterie**
 ```mermaid
 flowchart TD
     Start((Start)) --> Plug[Technik připojí auto do nabíječky]
@@ -88,7 +88,7 @@ flowchart TD
     UpdateStatus --> End((Konec))
 ```
 
-**UC5: Odebrat auto z mapy k servisu**
+**UC Servisního technika 2: Odebrat auto z mapy k servisu**
 ```mermaid
 flowchart TD
     Start((Start)) --> FindCar[Nalezení poškozeného auta v aplikaci]
@@ -99,7 +99,7 @@ flowchart TD
     Hide --> End((Konec))
 ```
 
-**UC6: Zobrazit vybitá a rozbitá auta**
+**UC Servisního technika 3: Zobrazit vybitá a rozbitá auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenApp[Otevření servisního panelu]
@@ -111,7 +111,7 @@ flowchart TD
 
 ### Role: Administrátor
 
-**UC7: Zablokovat nebo odblokovat uživatele**
+**UC Administrátora 1: Zablokovat nebo odblokovat uživatele**
 ```mermaid
 flowchart TD
     Start((Start)) --> SearchUser[Vyhledání uživatele podle jména/ID]
@@ -121,7 +121,7 @@ flowchart TD
     UpdateAcc --> End((Konec))
 ```
 
-**UC8: Vyřešit reklamace a faktury**
+**UC Administrátora 2: Vyřešit reklamace a faktury**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenTicket[Otevření podané reklamace]
@@ -134,7 +134,7 @@ flowchart TD
     CloseTicket --> End((Konec))
 ```
 
-**UC9: Změnit cenu za minutu jízdy**
+**UC Administrátora 3: Změnit cenu za minutu jízdy**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenSettings[Otevření globálního nastavení cen]
