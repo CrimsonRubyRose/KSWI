@@ -159,13 +159,15 @@ flowchart TD
 | **F09** | Blokace neplatičů | Automatické zamezení rezervace při neuhrazených dluzích. | Medium | Fakturace | Chybná blokace platícího zákazníka | F05 |
 | **F10** | Servisní režim | Možnost technika vyřadit vozidlo z nabídky pro veřejnost. | Medium | Technik | Nechtěné vyřazení funkčního vozu | F02 |
 
-## 1.4 Mimofunkční požadavky
+## 1.4 Specifikace mimofunkčních požadavků
 
-1. **Bezpečnost (N01):** Komunikace mezi aplikací klienta a serverem probíhá výhradně přes šifrovaný protokol TLS (Transport Layer Security). (Priorita: High)
-2. **Dostupnost (N02):** Systém musí být pro uživatele dostupný v režimu 24/7 s garantovanou dostupností 99,9 % času (minimalizace neplánovaných výpadků). (Priorita: Medium)
-3. **Robustnost (N03):** Systém je odolný proti hardwarovým chybám a plánované údržbě, při lokálním výpadku primárního serveru plynule přebírají provoz záložní (backup) servery. (Priorita: Medium)
-4. **Ochrana dat (N04):** Systém plně splňuje požadavky GDPR, citlivá osobní data (např. hesla, platební údaje) jsou v databázi šifrována pomocí standardu SHA-256. (Priorita: High)
-5. **Logování (N05):** Veškeré změny stavů vozidla (např. rezervace, servisní odstávka) jsou logovány/uložené s přímou vazbou na ID uživatele. (Priorita: Low)
+| ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
+|:---|:---|:---|:---:|:---|:---|:---|
+| **N01** | Bezpečná komunikace | Komunikace mezi aplikací a serverem probíhá výhradně přes šifrovaný protokol TLS. | High | Architekt | Odposlech citlivých dat (Man-in-the-middle) | - |
+| **N02** | Dostupnost systému | Systém musí být dostupný v režimu 24/7 s garantovanou dostupností 99,9 % času. | Medium | Business | Ušlý zisk a nespokojenost lidí při výpadku | - |
+| **N03** | Robustnost a zálohy | Odolnost proti HW chybám, při výpadku primárního serveru plynule přebírají provoz záložní servery. | Medium | Architekt | Krátkodobý výpadek při přepínání uzlů | - |
+| **N04** | Ochrana osobních dat | Soulad s GDPR, citlivá data (hesla, platební údaje) jsou v DB šifrována. | High | Legislativa | Únik osobních údajů a právní postihy / pokuty | F03 |
+| **N05** | Auditní logování | Veškeré změny stavů vozidla (rezervace, servis) jsou logovány s vazbou na ID uživatele. | Low | Provoz | Rychlé zaplnění diskového prostoru logy | F01, F10 |
 
 ## 1.5 Konfliktní požadavky a nejasnosti během analýzy
 
