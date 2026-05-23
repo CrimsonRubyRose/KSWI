@@ -53,4 +53,4 @@ Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další i
 
 ## 3. Zavedení firemních účtů (B2B Fleet)
 * **Popis:** Identifikace nového typu uživatele: **Firemní manažer**. Ten může rezervovat auta pro své zaměstnance na sdílený firemní účet.
-* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API. V UI přibude zcela nový dashboard pro firemní manažery. Naše komponenta `ReservationService` bude muset před vytvořením rezervace ověřit nejen to, zda je uživatel platný, ale zda má jeho firma dostatečný kredit na fakturu.
+* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API. V UI přibude zcela nový dashboard pro firemní manažery. Naše komponenta `ReservationService` bude muset před vytvořením rezervace ověřit nejen to, zda je uživatel platný, ale zda má jeho firma dostatečný kredit na kreditní kartě.
