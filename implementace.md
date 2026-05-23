@@ -3,13 +3,13 @@
 Pro implementaci klíčové komponenty byl zvolen jazyk **Python** s využitím moderního webového frameworku **FastAPI**. Zvolená komponenta je **Rezervační služba (ReservationService)**, která řeší ověření dostupnosti vozidla a změnu jeho stavu.
 
 ## 3.1 Komunikace komponent
-Zadání vyžaduje ukázku komunikace komponent. Protože se jedná o konzolovou aplikaci bez napojení na reálnou produkční databázi a externí služby, je meziprocesová komunikace simulována výpisem do standardního výstupu (konzole) v reálném čase.
+Zadání vyžaduje ukázku komunikace komponent. Protože se jedná o aplikaci bez nutnosti okamžitého nasazení produkční databáze a externích služeb, je meziprocesová komunikace simulována výpisem do standardního výstupu (konzole) v reálném čase. Tímto způsobem komponenta transparentně reportuje akce prováděné v okolních subsystémech.
 
 **Příklad výstupu v konzoli při úspěšné rezervaci:**
 ```text
-[LOG - Controller] Předávám požadavek Rezervační službě pro auto ID: 1
-[LOG - Databáze] Zápis: Stav auta ID: 1 změněn na 'rezervováno'.
-[LOG - Platební brána] Asynchronní autorizace platby pro uživatele 99 zahájena.
+[START] Rezervace auta 1 pro uživatele 42
+[LOG - Platební brána] Autorizace platby...
+[LOG - Databáze] SUCCESS: Auto 1 rezervováno.
 ```
 
 # 4. Webové služby
@@ -17,7 +17,7 @@ Zadání vyžaduje ukázku komunikace komponent. Protože se jedná o konzolovou
 Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem (mobilní aplikací).
 
 ## 4.1 Seznam endpointů
-* `GET /cars` - Vrací aktuální stav celé flotily (pro vykreslení do mapy).
+* `GET /cars` - Vrací aktuální stav všech aut v databázi (pro vykreslení do mapy).
 * `POST /reserve` - Přijímá JSON s ID uživatele a ID vozidla a vytváří rezervaci.
 
 ## 4.2 Ukázka volání API pomocí nástroje cURL
