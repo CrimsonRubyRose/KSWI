@@ -4,7 +4,7 @@ import datetime
 
 app = FastAPI(title="EV Sharing API")
 
-# --- DATOVÁ VRSTVA (In-memory simulace) ---
+# --- DATOVÁ VRSTVA  (Testovací dvojník FAKE za databázi)---
 db_cars = {
     1: {"id": 1, "model": "Škoda Enyaq", "status": "volné", "battery": 85},
     2: {"id": 2, "model": "Tesla Model 3", "status": "v servisu", "battery": 15},
