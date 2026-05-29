@@ -32,10 +32,27 @@ Při návrhu testovacích případů kombinujeme dvě základní metodiky testov
 * **Blackbox testing (Testování černé skříňky):** Technika, kdy se na systém nahlíží jako na uzavřenou schránku bez znalosti vnitřního kódu. Testuje se čistě funkčnost systému na základě definovaných vstupů a očekávaných výstupů přes uživatelské rozhraní nebo API. Typicky se využívá u E2E a akceptačních testů.
 
 ### Typy testů
-* **Jednotkové testy (Unit Testing):** Budou testovat izolované funkce (např. matematický výpočet ceny za minutu jízdy) pomocí metody **Whitebox**. Pro izolaci byznys logiky od vnějších systémů (mapy, platební brána) se využívají testovací dvojníci (**Test Doubles**), konkrétně typy **Dummy** (pro prázdné objekty v parametrech) a **Stub** (pro fixní podstrčené odpovědi z externích API).
-* **Integrační testy:** Budou ověřovat komunikaci mezi Rezervační službou a Databází, nebo mezi API a platební bránou. V rámci naší minimální implementace je databáze simulována přímo v paměti (slovník `db_cars`), což v architektuře testování reprezentuje testovacího dvojníka typu **Fake**.
-* **End-to-End (E2E) testy:** Simulace reálného uživatele proklikávajícího mobilní aplikaci od přihlášení až po ukončení jízdy pomocí metody **Blackbox**.
-* **Akceptační testování (UAT):** Finální testování se vzorkem reálných uživatelů před nasazením na produkci, které ověřuje splnění zadání z pohledu zákazníka (Blackbox přístup).
+
+#### 1. FUNCTIONAL TESTING (Funkční testování)
+Zaměřuje se na to, **co** ten systém dělá a zda správně plní zadané požadavky.
+
+* **Unit tests (Jednotkové testy):** Testují izolované funkce (např. matematický výpočet ceny za jízdu nebo test na sčítání) pomocí metody **Whitebox**.
+* **Integration tests (Integrační testy):** Ověřují vzájemnou komunikaci mezi komponentami (např. propojení funkce a databáze nebo API a platební brány). V této fázi se často používají testovací dvojníci (test doubles) – v naší implementaci je to slovník `db_cars` v paměti fungující jako **Fake**.
+* **End to end tests (E2E / Systémový test):** Simuluje průchod celým systémem z pohledu uživatele pomocí metody **Blackbox**. Testuje se kompletní scénář, například zda lze vybrat auto, provést rezervaci a zkusit, zda vše funguje od začátku do konce (obdoba vložení věci do nákupního košíku v e-shopech).
+* **Alpha / Beta / Acceptance test (Akceptační testování):** Závěrečný test, kdy zákazník testuje software. Pokud ho potvrdí, software je nasazen (deploynutý). Má tyto fáze:
+    * **Alpha test:** Testování, jak systém běží interně na firemním hardwaru (HW).
+    * **Beta test:** Testování koncovými uživateli přímo na jejich vlastním (user) HW.
+
+#### 2. NON-FUNCTIONAL TESTING (Mimo-funkční testy)
+Zaměřuje se na to, **jak** ty funkce systém vykonává (vlastnosti jako výkon, stabilita a bezpečnost).
+
+* **Load / Stress / Endurance testing:** Testování zátěže na systém a celkového výkonu:
+    * *Load test:* Testování při standardním, očekávaném zatížení.
+    * *Stress test:* Krátkodobé vystavení systému extrémní, maximální zátěži (short term).
+    * *Endurance test:* Dlouhodobé testování systému pod vysokou zátěží (max long).
+* **Scalability test (Testování škálovatelnosti):** Ověřuje, jak je systém schopen růst a zvládat navyšování kapacity hardwaru nebo počtu uživatelů.
+* **Pen testy (Penetrační testování):** Simulované kybernetické útoky, které testují zabezpečení systému a hledají potenciální zranitelnosti.
+  
 
 ### Testovací dvojníci (Test Doubles)
 V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci komponent:
