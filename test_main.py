@@ -16,6 +16,8 @@ def setup_function():
         3: {"id": 3, "model": "Hyundai Ioniq 5", "status": "rezervováno", "battery": 60}
     })
 
+# HTTP Responses:  200: Úspěch         400: Chyba (Špatný požadavek)   404: Nenalezeno
+
 def test_reserve_available_car_success(client):
     """Test 1: Úspěšná rezervace volného vozidla."""
     response = client.post("/reserve", json={"user_id": 42, "car_id": 1})
