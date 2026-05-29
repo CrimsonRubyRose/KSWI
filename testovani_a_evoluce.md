@@ -81,9 +81,6 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 
 ---
 
-# 6. Evoluce softwaru
-
-Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další iteraci vývoje (v2.0) jsou navrženy následující tři změny:
 
 # 6. Evoluce softwaru
 
