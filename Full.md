@@ -372,7 +372,7 @@ Zaměřuje se na to, **jak** ty funkce systém vykonává (vlastnosti jako výko
 * **Load / Stress / Endurance testing:** Testování zátěže na systém a celkového výkonu:
     * *Load test:* Testování při standardním, očekávaném zatížení.
     * *Stress test:* Krátkodobé vystavení systému extrémní, maximální zátěži (short term).
-    * *Endurance test:* Dlouhodobé testování systému pod vysokou zátěží (max long).
+    * *Endurance test:* Dlouhodobé testování systému pod vysokou zátěží (long term).
 * **Scalability test (Testování škálovatelnosti):** Ověřuje, jak je systém schopen růst a zvládat navyšování kapacity hardwaru nebo počtu uživatelů.
 * **Pen testy (Penetrační testování):** Simulované kybernetické útoky, které testují zabezpečení systému a hledají potenciální zranitelnosti.
   
