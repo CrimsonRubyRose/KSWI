@@ -32,7 +32,7 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 
 ### Role: Běžný uživatel
 
-**UC Bežného uživatele 1: Vyhledat auto na mapě**
+**UC Běžného uživatele 1: Vyhledat auto na mapě**
 ```mermaid
 flowchart TD
     Start((Start)) --> Open[Otevření mobilní aplikace]
@@ -42,7 +42,7 @@ flowchart TD
     Display --> End((Konec))
 ```
 
-**UC Bežného uživatele 1.1: Zobrazit informace a stav auta**
+**UC Běžného uživatele 1.1: Zobrazit informace a stav auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
@@ -51,7 +51,7 @@ flowchart TD
     Show --> End((Konec))
 ```
 
-**UC Bežného uživatele 2: Rezervovat auto**
+**UC Běžného uživatele 2: Rezervovat auto**
 ```mermaid
 flowchart TD
     Start((Start)) --> Select[Uživatel klikne na Rezervovat]
@@ -66,7 +66,7 @@ flowchart TD
     Cancel --> End
 ```
 
-**UC Bežného uživatele 3: Zobrazit historii jízd**
+**UC Běžného uživatele 3: Zobrazit historii jízd**
 ```mermaid
 flowchart TD
     Start((Start)) --> Profile[Otevření profilu uživatele]
@@ -187,4 +187,4 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 
 **2. Konflikt: Správa rolí/Zvýšení privilegií (F03) vs. Bezpečnost a GDPR (N04)**
 * **Identifikovaná nejasnost:** Existence administrátorské role s právem měnit oprávnění (F03) vytváří obrovské bezpečnostní riziko. Pokud by útočník zneužil systém pro neoprávněné zvýšení svých privilegií, získal by plný přístup k citlivým osobním údajům zákazníků, což by vedlo k okamžitému porušení GDPR (N04).
-* **Navržené řešení:** Změna rolí a povyšování uživatelů na administrátory nebude možná běžným uživatelem a bude logována
+* **Navržené řešení:** Změna rolí a povyšování uživatelů na administrátory nebude možná běžným uživatelem a bude logována.
