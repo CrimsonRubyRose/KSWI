@@ -33,7 +33,7 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 
 ### Role: Běžný uživatel
 
-**UC Bežného uživatele 1: Vyhledat auto na mapě**
+**UC Běžného uživatele 1: Vyhledat auto na mapě**
 ```mermaid
 flowchart TD
     Start((Start)) --> Open[Otevření mobilní aplikace]
@@ -43,7 +43,7 @@ flowchart TD
     Display --> End((Konec))
 ```
 
-**UC Bežného uživatele 1.1: Zobrazit informace a stav auta**
+**UC Běžného uživatele 1.1: Zobrazit informace a stav auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
@@ -52,7 +52,7 @@ flowchart TD
     Show --> End((Konec))
 ```
 
-**UC Bežného uživatele 2: Rezervovat auto**
+**UC Běžného uživatele 2: Rezervovat auto**
 ```mermaid
 flowchart TD
     Start((Start)) --> Select[Uživatel klikne na Rezervovat]
@@ -67,7 +67,7 @@ flowchart TD
     Cancel --> End
 ```
 
-**UC Bežného uživatele 3: Zobrazit historii jízd**
+**UC Běžného uživatele 3: Zobrazit historii jízd**
 ```mermaid
 flowchart TD
     Start((Start)) --> Profile[Otevření profilu uživatele]
@@ -188,7 +188,7 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 
 **2. Konflikt: Správa rolí/Zvýšení privilegií (F03) vs. Bezpečnost a GDPR (N04)**
 * **Identifikovaná nejasnost:** Existence administrátorské role s právem měnit oprávnění (F03) vytváří obrovské bezpečnostní riziko. Pokud by útočník zneužil systém pro neoprávněné zvýšení svých privilegií, získal by plný přístup k citlivým osobním údajům zákazníků, což by vedlo k okamžitému porušení GDPR (N04).
-* **Navržené řešení:** Změna rolí a povyšování uživatelů na administrátory nebude možná běžným uživatelem a bude logována
+* **Navržené řešení:** Změna rolí a povyšování uživatelů na administrátory nebude možná běžným uživatelem a bude logována.
 
 # 2. Softwarová architektura
 
@@ -274,7 +274,7 @@ Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem 
 
 ## 4.2 Ukázka volání API pomocí nástroje cURL
 
-**0. List informací o všech aut v databázi:**
+**0. List informací o všech autech v databázi:**
 ```bash
 curl -X GET "http://127.0.0.1:8000/cars" -H "accept: application/json"
 ```
@@ -292,7 +292,7 @@ curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: applica
 ```
 Výsledek: {"status":"ok","message":"Auto 1 bylo vyřazeno z oběhu a nahlášeno servisu.","details":{"id":1,"model":"Škoda Enyaq","status":"v servisu","battery":85}}
 
-**3. Uvolnění auta z servisu:**
+**3. Uvolnění auta ze servisu:**
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=1" -H "accept: application/json"
 ```
@@ -313,7 +313,7 @@ curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: applica
 ```
 Výsledek: {"detail":"Vozidlo nenalezeno."}
 
-**6. Neúspěšné uvolnění auta z servisu (neexistující auto):**
+**6. Neúspěšné uvolnění auta ze servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=999" -H "accept: application/json"
