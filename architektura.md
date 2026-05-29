@@ -51,7 +51,6 @@ graph TD
 
 ## 2.3 Popis klíčových komponent
 
-## 2.3 Popis klíčových komponent
 
 * **REST API Controller:** Vstupní brána do systému. Přijímá HTTP požadavky od klientů, provádí základní validaci vstupů a směruje je dál na příslušné služby.
 * **Rezervační služba:** Obsahuje hlavní logiku pro vytváření, ověřování a rušení rezervací. Hlídá byznys pravidla a řeší kolize, aby si dva lidé nemohli zarezervovat stejné auto ve stejný moment.
