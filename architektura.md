@@ -2,12 +2,12 @@
 
 ## 2.1 Volba architektury a její zdůvodnění
 
-Pro návrh systému správy sdílených elektromobilů jsem zvolila **Vrstvenou architektura (Layered Architecture)**.
+Pro návrh systému správy sdílených elektromobilů jsem zvolila **Vrstvenou architekturu (Layered Architecture)**.
 
 **Zdůvodnění volby:**
-1. **Oddělení odpovědností (Separation of Concerns):** Architektura jasně odděluje prezentační vrstvu (REST API / Konzole), vrstvu obchodní logiky (servisy) a datovou vrstvu (Databáze). To umožňuje nezávislý vývoj a snadnější testování jednotlivých komponent.
-2. **Přiměřenost zadání:** Využití mikroslužeb by pro tento rozsah systému (a jeho částečnou implementaci) představovalo zbytečnou technologickou a síťovou režii (tzv. over-engineering). Monolitický přístup s vrstvami je efektivnější na nasazení i údržbu.
-3. **Snadná evoluce:** Pokud by v budoucnu systém masivně narostl, lze jednotlivé dobře zapouzdřené vrstvy nebo moduly (např. Rezervační službu) poměrně snadno vyjmout a transformovat do samostatné mikroslužby.
+1. **Oddělení odpovědností a extrémní testovatelnost:** Architektura striktně odděluje prezentační vrstvu (REST API), vrstvu byznys logiky (Služby) a datovou vrstvu (Databáze a integrace s API). Toto izolování vrstev mi umožňuje **vysokou úroveň interní kvality** – byznys logiku rezervační služby lze díky tomu snadno testovat pomocí Unit a Integračních testů, aniž bych musela spouštět celou databázi, protože závislosti mohu nahradit tzv. Testovacími dvojníky (*Test Doubles*).
+2. **Přiměřenost zadání:** Využití mikroslužeb by pro tento rozsah systému představovalo zbytečnou technologickou a síťovou režii (tzv. over-engineering). Monolitický přístup s vrstvami je efektivnější na nasazení i údržbu a zároveň systém udržuje v kvadrantu "vysoká kvalita kódů".
+3. **Snadná evoluce (Refactoring):** Pokud by v budoucnu systém narostl, lze díky čistému rozhraní jednotlivé moduly (např. Rezervační službu) poměrně snadno vyjmout a transformovat do samostatné mikroslužby. Architektura tedy umožňuje plynulý refactoring místo drahého přepisování (reengineeringu).
 
 ## 2.2 Diagram komponent a interakcí
 Následující diagram znázorňuje hlavní komponenty systému a toky dat mezi nimi. Zahrnuje komunikaci od uživatelského rozhraní přes API až po databázi a externí služby.
