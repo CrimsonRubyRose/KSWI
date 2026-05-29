@@ -36,7 +36,7 @@ Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu j
 **UC Běžného uživatele 1: Vyhledat auto na mapě**
 ```mermaid
 flowchart TD
-    Start((Start)) --> Open[Otevření mobilní aplikace]
+    Start((Start)) --> Open[Otevření aplikace]
     Open --> GPS[Načtení aktuální GPS polohy]
     GPS --> Fetch[Dotaz na server pro volná auta v okolí]
     Fetch --> Display[Vykreslení bodů na mapě]
@@ -203,7 +203,7 @@ Pro návrh systému správy sdílených elektromobilů jsem zvolila **Vrstvenou 
 
 ## 2.2 Diagram komponent a interakcí
 Následující diagram znázorňuje hlavní komponenty systému a toky dat mezi nimi. Zahrnuje komunikaci od uživatelského rozhraní přes API až po databázi a externí služby.
-
+(V mé minimální implementaci jsem sloučila do rezervační služby i přímo tu službu správy vozidel, aby vše bylo v jedné komponentně. Správně by to ale měla být vlastní komponenta.)
 ```mermaid
 graph TD
     subgraph "Klientská vrstva"
@@ -266,7 +266,7 @@ Protože se jedná o minimální implementaci bez reálné databáze a externíc
 
 # 4. Webové služby
 
-Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem (mobilní aplikací).
+Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem.
 
 ## 4.1 Seznam endpointů
 * `GET /cars` - Vrací aktuální stav všech aut v databázi (pro vykreslení do mapy).
