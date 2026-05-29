@@ -65,15 +65,17 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 
 ### Strategie a kvalita kódu
 
-* **Shift-left přístup:** Strategie, kdy se testování a kontrola kvality posouvají na úplný začátek vývojového cyklu. Testování tak nezačíná až u hotového kódu, ale již ve fázi analýzy a návrhu zadání. Součástí tohoto přístupu jsou dvě klíčové techniky:
+* **Shift-left přístup:** Strategie, kdy se testování a kontrola kvality posouvají na úplný začátek vývojového cyklu. Testování tak nezačíná až u hotového kódu, ale již ve fázi analýzy a návrhu zadání. Hlavní technikou tohoto přístupu je:
     * **Validace (Kontrola kvality požadavků):** Před samotným kódováním se požadavky kontrolují podle 5 základních kritérií, aby se předešlo drahým chybám v implementaci:
         1. *Validita (Správnost):* Ověřuje se, zda je požadavek opravdu zapotřebí a zda jeho roli už neplní jiná existující funkce.
         2. *Konzistence (Bezrozpornost):* Kontroluje se, zda je požadavek ve shodě s ostatními a zda nejdou proti sobě.
         3. *Úplnost:* Ověřuje se, zda požadavek obsahuje všechny informace, které vývojáři potřebují k implementaci.
         4. *Realismus (Realizovatelnost):* Zkoumá se, zda je požadavek technicky, finančně a časově realizovatelný.
         5. *Ověřitelnost:* Požadavek musí být měřitelný (obsahovat konkrétní čas nebo hodnotu), aby se dalo exaktně ověřit jeho splnění.
-    * **TDD (Test Driven Development):** Vývojáři píší automatizované testy dříve než samotný produkční kód, což je vede k čistšímu návrhu a okamžitému odhalení chyb.
-    * **BDD (Behavior-Driven Development):** Rozšíření metodiky TDD, které se zaměřuje na chování systému z pohledu uživatele. Scénáře se píší v lidsky čitelném jazyce (často pomocí šablony *Given-When-Then* / *Pokud-Když-Pak*). To umožňuje, aby na kvalitu a správnost požadavků dohlíželi společně vývojáři, testeři i byznys analytici ještě před začátkem vývoje.
+
+* **TDD (Test Driven Development):** Vývojová praxe, při které programátoři píší automatizované testy dříve než samotný produkční kód, což je vede k čistšímu návrhu a okamžitému odhalení chyb. Podporuje to myšlenku včasného odhalování defektů.
+
+* **BDD (Behavior-Driven Development):** Rozšíření metodiky TDD, které se zaměřuje na chování systému z pohledu uživatele. Scénáře se píší v lidsky čitelném jazyce (často pomocí šablony *Given-When-Then* / *Pokud-Když-Pak*). To umožňuje, aby na kvalitu a správnost požadavků dohlíželi společně vývojáři, testeři i byznys analytici ještě před začátkem vývoje.
 
 * **Statická analýza kódu:** Nasazení nástrojů (např. SonarQube) pro automatickou kontrolu zranitelností, bezpečnostních chyb a dodržování jednotné štábní kultury kódu bez nutnosti jeho spuštění.
 
