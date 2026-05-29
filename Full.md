@@ -248,7 +248,7 @@ graph TD
 * **Rezervační služba:** Obsahuje hlavní logiku pro vytváření, ověřování a rušení rezervací. Hlídá byznys pravidla a řeší kolize, aby si dva lidé nemohli zarezervovat stejné auto ve stejný moment.
 * **Služba správy vozidel:** Eviduje a mění stavy aut (volné, rezervované, v servisu). Komunikuje s mapovou službou pro získání a aktualizaci GPS souřadnic vozidel.
 * **Fakturační služba:** Po úspěšném ukončení jízdy vypočítá výslednou cenu na základě času jízdy a ujeté vzdálenosti.
-* **Databáze:** Data jsou uložena přímo v paměti programu pomocí Python slovníku (`db_cars`). Tento slovník v našem kódu simuluje datové úložiště vozidel a jejich stavů. V testování toto řešení funguje jako testovací dvojník typu **Fake**. V ostré produkci by se tento slovník nahradil klasickou databází (např. PostgreSQL).
+* **Databáze:** Data jsou uložena přímo v paměti programu pomocí Python slovníku (`db_cars`). Tento slovník v mém kódu simuluje datové úložiště vozidel a jejich stavů. V testování toto řešení funguje jako testovací dvojník typu **Fake**. V ostré produkci by se tento slovník nahradil klasickou databází (např. PostgreSQL).
 
 # 3. Vývoj komponent a API
 
@@ -382,7 +382,7 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 
 * **Test Dummy:** Prázdný objekt předávaný výhradně jako parametr funkce (jako figurína při crash testech). Neobsahuje žádná reálná data a slouží jen k úspěšnému vyvolání funkce.
 * **Test Stub:** Náhrada, která vrací natvrdo zadané (hard-coded) statické hodnoty. Používá se k podstrčení fixních dat (např. pevná cena za minutu), aby test nezávisel na externích službách.
-* **Test Fake:** Funkční náhrada systému s jednodušší implementací, která není vhodná pro ostrý provoz. V našem projektu je to slovník `db_cars` simulující databázi v paměti.
+* **Test Fake:** Funkční náhrada systému s jednodušší implementací, která není vhodná pro ostrý provoz. V mém projektu je to slovník `db_cars` simulující databázi v paměti.
 * **Test Mock:** Dvojník s předem definovaným chováním. Používá se ke zjednodušení procesů, například pro okamžité vracení platného autorizačního tokenu bez nutnosti reálného přihlašování.
 * **Test Spy:** Dvojník podobný Stubu, který navíc aktivně monitoruje a zaznamenává informace o tom, jak s ním systém komunikoval (např. počítá množství zavolání).
 
@@ -421,5 +421,5 @@ Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další i
 
 ### 3. Zavedení firemních účtů (B2B Fleet)
 * **Popis:** Identifikace nového typu uživatele: Firemní manažer. Tento uživatel může rezervovat auta pro své zaměstnance a platby se strhávají ze sdíleného firemního účtu.
-* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do databázové tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API a v uživatelském rozhraní (UI) přibude zcela nový dashboard pro správu firemní flotily. Naše komponenta `ReservationService` bude muset před schválením rezervace ověřit nejen platnost uživatele, ale také zda má jeho firma na svém účtu dostatečný kredit.
+* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do databázové tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API a v uživatelském rozhraní (UI) přibude zcela nový dashboard pro správu firemních účtů. Komponenta `ReservationService` bude muset před schválením rezervace ověřit nejen platnost uživatele, ale také zda má jeho firma na svém účtu dostatečný kredit.
 
