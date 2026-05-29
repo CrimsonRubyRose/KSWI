@@ -51,8 +51,7 @@ Očekávaný výsledek: Chybová hláška vozidlo není k dispozici
 ```bash
 curl -X POST "http://127.0.0.1:8000/reserve" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"user_id\": 99, \"car_id\": 2}"
 ```
-{"detail":"Vozidlo není k dispozici."}
-Výsledek: {"status":"ok","message":"Rezervace vytvořena","car":{"id":1,"model":"Škoda Enyaq","status":"rezervováno","battery":85}}
+Výsledek: {"detail":"Vozidlo není k dispozici."}
 
 **5. Neúspěšné odeslání auta do servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
