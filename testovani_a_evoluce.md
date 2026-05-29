@@ -45,7 +45,7 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 * **Test Fake:** Funkční náhrada systému s jednodušší implementací, která není vhodná pro ostrý provoz. V našem projektu je to slovník `db_cars` simulující databázi v paměti.
 * **Test Mock:** Dvojník s předem definovaným chováním. Používá se ke zjednodušení procesů, například pro okamžité vracení platného autorizačního tokenu bez nutnosti reálného přihlašování.
 * **Test Spy:** Dvojník podobný Stubu, který navíc aktivně monitoruje a zaznamenává informace o tom, jak s ním systém komunikoval (např. počítá množství zavolání).
-* 
+
 ### Strategie a kvalita kódu
 * **Shift-left přístup:** Testování začíná už ve fázi návrhu požadavků. Vývojáři píší testy dříve než samotný kód v rámci metodiky **TDD** (Test Driven Development), aby se odhalily chyby co nejdříve.
 * **Statická analýza kódu:** Nasazení nástrojů (např. SonarQube) pro automatickou kontrolu zranitelností, bezpečnostních chyb a dodržování jednotné štábní kultury kódu bez nutnosti jeho spuštění.
