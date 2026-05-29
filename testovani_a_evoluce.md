@@ -38,13 +38,14 @@ Při návrhu testovacích případů kombinujeme dvě základní metodiky testov
 * **Akceptační testování (UAT):** Finální testování se vzorkem reálných uživatelů před nasazením na produkci, které ověřuje splnění zadání z pohledu zákazníka (Blackbox přístup).
 
 ### Testovací dvojníci (Test Doubles)
-Pro účely testování izolovaných komponent a pro naši minimální implementaci uvažujeme v plánu testování následující typy testovacích dvojníků:
-* **Test Dummy:** Prázdné objekty nebo hodnoty, které slouží čistě k tomu, aby se předaly jako parametr do funkce (podobně jako figurína při crash testech). Dummy neobsahuje žádná reálná data, ale splňuje typové požadavky funkce. Umožňuje nám otestovat například samotné volání funkce nebo připojení k databázi, aniž by bylo nutné ověřovat integritu posílaných dat.
-* **Test Stub:** Neplná náhrada, která do testu doplňuje konkrétní, natvrdo zadané (hard-coded) hodnoty, aby nahradila data z vnějšího prostředí. Například při testování výpočtu ceny jízdy nám Stub poskytne fixní cenu za minutu, aniž by systém musel hodnotu reálně tahat z produkční databáze nebo externí služby. Zajišťuje, že testování je stabilní a předvídatelné.
-* **Test Fake:** Objekt, který simuluje reálnou komponentu, ale pomocí úplně jiné (zjednodušené) implementace. Typickým příkladem je právě naše databáze aut běžící pouze v paměti Pythonu (`db_cars`). Fakes nám umožňují testovat funkce, které by s reálnými systémy (např. s časově omezenými tokeny u vícefaktorového ověření) byly příliš pomalé nebo náchylné k chybám.
-* **Test Mock:** Na rozdíl od Stubu, který jen drží statické hodnoty, se Mock chová předem definovaným způsobem. Používá se například k simulaci ověřování uživatele, kdy Mock funkce vždy automaticky odpoví platným autorizačním tokenem. Tím odpadá zdlouhavé procházení přihlašovacího procesu v každém testu a QA se může plně soustředit na testování samotné funkce v izolaci.
-* **Test Spy:** Jedná se o pokročilejší dvojník podobný Stubu, který navíc aktivně sleduje a zaznamenává informace o svém vnitřním stavu a o tom, jak s ním systém během testu komunikoval (např. si pamatuje, kolikrát byl daný objekt zavolán nebo zakoupen). Spies nám umožňují navrhovat mnohem komplexnější testovací scénáře.
+V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci komponent:
 
+* **Test Dummy:** Prázdný objekt předávaný výhradně jako parametr funkce (jako figurína při crash testech). Neobsahuje žádná reálná data a slouží jen k úspěšnému vyvolání funkce.
+* **Test Stub:** Náhrada, která vrací natvrdo zadané (hard-coded) statické hodnoty. Používá se k podstrčení fixních dat (např. pevná cena za minutu), aby test nezávisel na externích službách.
+* **Test Fake:** Funkční náhrada systému s jednodušší implementací, která není vhodná pro ostrý provoz. V našem projektu je to slovník `db_cars` simulující databázi v paměti.
+* **Test Mock:** Dvojník s předem definovaným chováním. Používá se ke zjednodušení procesů, například pro okamžité vracení platného autorizačního tokenu bez nutnosti reálného přihlašování.
+* **Test Spy:** Dvojník podobný Stubu, který navíc aktivně monitoruje a zaznamenává informace o tom, jak s ním systém komunikoval (např. počítá množství zavolání).
+* 
 ### Strategie a kvalita kódu
 * **Shift-left přístup:** Testování začíná už ve fázi návrhu požadavků. Vývojáři píší testy dříve než samotný kód v rámci metodiky **TDD** (Test Driven Development), aby se odhalily chyby co nejdříve.
 * **Statická analýza kódu:** Nasazení nástrojů (např. SonarQube) pro automatickou kontrolu zranitelností, bezpečnostních chyb a dodržování jednotné štábní kultury kódu bez nutnosti jeho spuštění.
