@@ -1,9 +1,9 @@
 # 3. Vývoj komponent a API
 
-Pro implementaci klíčové komponenty byl zvolen jazyk **Python** s využitím moderního webového frameworku **FastAPI**. Zvolená komponenta je **Rezervační služba (ReservationService)**, která řeší ověření dostupnosti vozidla a změnu jeho stavu.
+Pro implementaci klíčové komponenty byl zvolen jazyk Python a webový framework FastAPI. Vybranou komponentou je **Rezervační služba (ReservationService)**, která ověřuje dostupnost vozidel a mění jejich stavy.
 
 ## 3.1 Komunikace komponent
-Zadání vyžaduje ukázku komunikace komponent. Protože se jedná o aplikaci bez nutnosti okamžitého nasazení produkční databáze a externích služeb, je meziprocesová komunikace simulována výpisem do standardního výstupu (konzole) v reálném čase. Tímto způsobem komponenta transparentně reportuje akce prováděné v okolních subsystémech.
+Protože se jedná o minimální implementaci bez reálné databáze a externích služeb, je komunikace mezi komponentami simulována výpisem do konzole. Komponenta tak v reálném čase reportuje akce prováděné v okolních subsystémech.
 
 **Příklad výstupu v konzoli při úspěšné rezervaci:**
 ```text
