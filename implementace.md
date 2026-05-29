@@ -22,7 +22,7 @@ Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem 
 
 ## 4.2 Ukázka volání API pomocí nástroje cURL
 
-**0. List informací o všech aut v databázi:**
+**0. List informací o všech autech v databázi:**
 ```bash
 curl -X GET "http://127.0.0.1:8000/cars" -H "accept: application/json"
 ```
@@ -40,7 +40,7 @@ curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: applica
 ```
 Výsledek: {"status":"ok","message":"Auto 1 bylo vyřazeno z oběhu a nahlášeno servisu.","details":{"id":1,"model":"Škoda Enyaq","status":"v servisu","battery":85}}
 
-**3. Uvolnění auta z servisu:**
+**3. Uvolnění auta ze servisu:**
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=1" -H "accept: application/json"
 ```
@@ -60,7 +60,7 @@ curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: applica
 ```
 Výsledek: {"detail":"Vozidlo nenalezeno."}
 
-**6. Neúspěšné uvolnění auta z servisu (neexistující auto):**
+**6. Neúspěšné uvolnění auta ze servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=999" -H "accept: application/json"
