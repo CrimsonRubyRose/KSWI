@@ -144,7 +144,17 @@ flowchart TD
     UpdateSystem --> End((Konec))
 ```
 
-## 1.3 Specifikace funkčních požadavků
+### 1.3 Zdroje požadavků (Stakeholders)
+Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků v systému:
+* **Zákazník:** Koncový řidič elektromobilu. Vyžaduje spolehlivost a rychlost klíčových funkcí (rezervace, odemčení).
+* **Business:** Vedení firmy financující projekt. Definuje požadavky zajišťující ziskovost a stabilitu (fakturace, dostupnost).
+* **Technik / Provoz:** Interní tým starající se o flotilu aut v terénu. Vyžaduje telemetrická data (baterie, servisní režim).
+* **Architekt:** Hlavní softwarový návrhář. Definuje interní technické a mimofunkční požadavky (šifrování, robustnost).
+* **Legislativa:** Právní rámec a státní nařízení. Diktuje povinné shody s předpisy (GDPR).
+* **UX (User Experience):** Návrhář uživatelského rozhraní. Zaměřuje se na přívětivost systému (vizualizace na mapě).
+* **Zadání:** Přímé a neměnné požadavky stanovené výchozím zadavatelem projektu.
+
+## 1.4 Specifikace funkčních požadavků
 
 | ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
 |:---|:---|:---|:---:|:---|:---|:---|
@@ -159,7 +169,7 @@ flowchart TD
 | **F09** | Blokace neplatičů | Automatické zamezení rezervace při neuhrazených dluzích. | Medium | Fakturace | Chybná blokace platícího zákazníka | F05 |
 | **F10** | Servisní režim | Možnost technika vyřadit vozidlo z nabídky pro veřejnost. | Medium | Technik | Nechtěné vyřazení funkčního vozu | F02 |
 
-## 1.4 Specifikace mimofunkčních požadavků
+## 1.5 Specifikace mimofunkčních požadavků
 
 | ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
 |:---|:---|:---|:---:|:---|:---|:---|
@@ -169,7 +179,7 @@ flowchart TD
 | **N04** | Ochrana osobních dat | Soulad s GDPR, citlivá data (hesla, platební údaje) jsou v DB šifrována. | High | Legislativa | Únik osobních údajů a právní postihy / pokuty | F03 |
 | **N05** | Auditní logování | Veškeré změny stavů vozidla (rezervace, servis) jsou logovány s vazbou na ID uživatele. | Low | Provoz | Rychlé zaplnění diskového prostoru logy | F01, F10 |
 
-## 1.5 Konfliktní požadavky a nejasnosti během analýzy
+## 1.6 Konfliktní požadavky a nejasnosti během analýzy
 
 **Identifikovaná nejasnost:**
 Během analýzy byl zjištěn konflikt mezi požadavkem na **Zobrazení historie jízd (F06)** a striktní **Ochranou dat podle GDPR (N04)**. Systém musí na jednu stranu zaznamenávat trasu, ale dlouhodobé uchovávání přesných GPS bodů pohybu konkrétní osoby je z hlediska ochrany soukromí problematické.
