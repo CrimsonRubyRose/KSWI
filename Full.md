@@ -153,7 +153,7 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 * **Architekt:** Hlavní softwarový návrhář. Definuje interní technické a mimofunkční požadavky (šifrování, robustnost).
 * **Legislativa:** Právní rámec a státní nařízení. Diktuje povinné shody s předpisy (GDPR).
 * **UX (User Experience):** Návrhář uživatelského rozhraní. Zaměřuje se na přívětivost systému (vizualizace na mapě).
-* **Zadání:** Přímé a neměnné požadavky stanovené výchozím zadavatelem projektu.
+* **Administrátor**: Správce celého systému. Vyžaduje nástroje pro bezpečné řízení přístupů uživatelů, řešení sporů a celkovou kontrolu nad platformou.
 
 ## 1.4 Specifikace funkčních požadavků
 
@@ -161,7 +161,7 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 |:---|:---|:---|:---:|:---|:---|:---|
 | **F01** | Rezervace vozidla | Uživatel si může zablokovat auto pro sebe skrze aplikaci. | High | Zákazník | Race condition (duplicitní rezervace) | F02 |
 | **F02** | Sledování stavu | Systém eviduje stavy: volné, rezervované, v servisu. | High | Provoz | Nekoherentní data v databázi | - |
-| **F03** | Správa uživatelů | Administrátor může měnit role a oprávnění uživatelů. | Medium | Zadání | Neoprávněné zvýšení privilegií | - |
+| **F03** | Správa uživatelů | Administrátor může měnit role a oprávnění uživatelů. | Medium | Administrátor | Neoprávněné zvýšení privilegií | - |
 | **F04** | Integrace map | Zobrazení polohy a dostupnosti aut na mapovém podkladu. | Medium | UX | Výpadek externí mapové služby (API) | F02 |
 | **F05** | Fakturace jízdy | Automatický výpočet ceny a vystavení faktury po jízdě. | High | Business | Chyba ve výpočtu času/vzdálenosti | F06 |
 | **F06** | Historie jízd | Uživatel má přístup k seznamu svých minulých výpůjček. | Low | Zákazník | Únik citlivých osobních údajů | - |
