@@ -64,9 +64,20 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 * **Test Spy:** Dvojník podobný Stubu, který navíc aktivně monitoruje a zaznamenává informace o tom, jak s ním systém komunikoval (např. počítá množství zavolání).
 
 ### Strategie a kvalita kódu
-* **Shift-left přístup:** Testování začíná už ve fázi návrhu požadavků. Vývojáři píší testy dříve než samotný kód v rámci metodiky **TDD** (Test Driven Development), aby se odhalily chyby co nejdříve.
+
+* **Shift-left přístup:** Strategie, kdy se testování a kontrola kvality posouvají na úplný začátek vývojového cyklu. Testování tak nezačíná až u hotového kódu, ale již ve fázi analýzy a návrhu zadání. Součástí tohoto přístupu jsou dvě klíčové techniky:
+    * **Validace (Kontrola kvality požadavků):** Před samotným kódováním se požadavky kontrolují podle 5 základních kritérih, aby se předešlo drahým chybám v implementaci:
+        1. *Validita (Správnost):* Ověřuje se, zda je požadavek opravdu zapotřebí a zda jeho roli už neplní jiná existující funkce.
+        2. *Konzistence (Bezrozpornost):* Kontroluje se, zda je požadavek ve shodě s ostatními a zda nejdou proti sobě.
+        3. *Úplnost:* Ověřuje se, zda požadavek obsahuje všechny informace, které vývojáři potřebují k implementaci.
+        4. *Realismus (Realizovatelnost):* Zkoumá se, zda je požadavek technicky, finančně a časově realizovatelný.
+        5. *Ověřitelnost:* Požadavek musí být měřitelný (obsahovat konkrétní čas nebo hodnotu), aby se dalo exaktně ověřit jeho splnění.
+    * **TDD (Test Driven Development):** Vývojáři píší automatizované testy dříve než samotný produkční kód, což je vede k čistšímu návrhu a okamžitému odhalení chyb.
+    * **BDD (Behavior-Driven Development):** Rozšíření metodiky TDD, které se zaměřuje na chování systému z pohledu uživatele. Scénáře se píší v lidsky čitelném jazyce (často pomocí šablony *Given-When-Then* / *Pokud-Když-Pak*). To umožňuje, aby na kvalitu a správnost požadavků dohlíželi společně vývojáři, testeři i byznys analytici ještě před začátkem vývoje.
+
 * **Statická analýza kódu:** Nasazení nástrojů (např. SonarQube) pro automatickou kontrolu zranitelností, bezpečnostních chyb a dodržování jednotné štábní kultury kódu bez nutnosti jeho spuštění.
-* **CI/CD datovod (Pipeline):** Každý commit do větve main v Gitu automaticky spustí build aplikace,
+
+* **CI/CD datovod (Pipeline):** Každý commit do větve `main` v Gitu automaticky spustí build aplikace, linter (statickou analýzu) a všechny testy. Pokud jakýkoliv test nebo kontrola kvality selže, nasazení na produkční servery se automaticky zablokuje.
 
 ---
 
