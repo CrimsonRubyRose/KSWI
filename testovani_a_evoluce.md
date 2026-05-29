@@ -85,14 +85,18 @@ V plánu testování využíváme tyto typy testovacích dvojníků pro izolaci 
 
 Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další iteraci vývoje (v2.0) jsou navrženy následující tři změny:
 
-## 1. Integrace s MHD (Městská hromadná doprava)
-* **Popis:** Uživatel si bude moci koupit kombinovaný lístek, který ho nechá dojet tramvají k nejbližšímu volnému autu.
-* **Dopad na architekturu a kód:** Bude nutné přidat novou komponentu `TransitIntegrationService`, která bude přes externí API komunikovat s dopravním podnikem. V databázi přibude nová entita `KombinovanaRezervace`. Logika naší komponenty `ReservationService` se bude muset rozšířit o schopnost rezervovat auto s odloženým startem (než uživatel dojede tramvají).
+# 6. Evoluce softwaru
 
-## 2. Dynamická cenotvorba (Surge Pricing)
-* **Popis:** V době dopravní špičky nebo deště se cena za minutu jízdy automaticky zvýší. Pokud má auto málo baterie a uživatel ho zapojí do nabíječky, dostane naopak slevu.
-* **Dopad na architekturu a kód:** Neovlivní to samotnou architekturu (vrstvy zůstanou stejné), ale výrazně to zasáhne `BillingService` (Fakturační službu) a `ReservationService`. V `ReservationService` se bude muset při vytvoření rezervace zafixovat aktuálně vypočítaná cena. 
+Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další iteraci vývoje (v2.0) jsou navrženy následující tři změny:
 
-## 3. Zavedení firemních účtů (B2B Fleet)
-* **Popis:** Identifikace nového typu uživatele: **Firemní manažer**. Ten může rezervovat auta pro své zaměstnance na sdílený firemní účet.
-* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API. V UI přibude zcela nový dashboard pro firemní manažery. Naše komponenta `ReservationService` bude muset před vytvořením rezervace ověřit nejen to, zda je uživatel platný, ale zda má jeho firma dostatečný kredit na kreditní kartě.
+### 1. Integrace s MHD (Městská hromadná doprava)
+* **Popis:** Uživatel si bude moci zakoupit kombinovaný lístek, který mu umožní dojet tramvají či autobusem k nejbližšímu volnému elektromobilu.
+* **Dopad na architekturu a kód:** Bude nutné přidat novou komponentu `TransitIntegrationService`, která bude přes externí API komunikovat s dopravním podnikem. V databázi přibude nová entita `KombinovanaRezervace`. Logika naší komponenty `ReservationService` se bude muset rozšířit o schopnost rezervovat vozidlo s odloženým startem (po dobu, než uživatel k autu dojede hromadnou dopravou).
+
+### 2. Dynamická cenotvorba (Surge Pricing)
+* **Popis:** V době dopravní špičky nebo nepříznivého počasí (deště) se cena za minutu jízdy automaticky zvýší. Pokud má auto nízký stav baterie a uživatel ho po ukončení jízdy zapojí do nabíječky, dostane naopak slevu.
+* **Dopad na architekturu a kód:** Tato změna neovlivní samotnou architekturu (vrstvy zůstanou stejné), ale výrazně zasáhne do vnitřního kódu `BillingService` (Fakturační služby) a `ReservationService`. V `ReservationService` se bude muset při vytvoření rezervace zafixovat aktuálně vypočítaná cena, aby se během jízdy už neměnila.
+
+### 3. Zavedení firemních účtů (B2B Fleet)
+* **Popis:** Identifikace nového typu uživatele: Firemní manažer. Tento uživatel může rezervovat auta pro své zaměstnance a platby se strhávají ze sdíleného firemního účtu.
+* **Dopad na architekturu a kód:** Bude nutné masivně upravit datové modely. Do databázové tabulky uživatelů přibude vazba na `CompanyAccount`. Změní se autentizační a autorizační API a v uživatelském rozhraní (UI) přibude zcela nový dashboard pro správu firemní flotily. Naše komponenta `ReservationService` bude muset před schválením rezervace ověřit nejen platnost uživatele, ale také zda má jeho firma na svém účtu dostatečný kredit.
