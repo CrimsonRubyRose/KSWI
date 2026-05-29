@@ -197,9 +197,9 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 Pro návrh systému správy sdílených elektromobilů jsem zvolila **Vrstvenou architekturu (Layered Architecture)**.
 
 **Zdůvodnění volby:**
-1. **Oddělení vrstev a testovatelnost:** Architektura logicky rozděluje aplikaci na API, logiku a databázi. Díky tomu se kód dobře udržuje a samotná logika se dá jednoduše otestovat pomocí testovacích dvojníků, aniž bych musela spouštět reálnou databázi.
-2. **Přiměřenost k zadání:** Dělat to rovnou přes mikroslužby by bylo pro tento projekt zbytečně složité. Layered infrastructure se mnohem snadněji nasazuje i spravuje a navíc mám díky tomu možnost využít test doubles.
-3. **Snadné úpravy do budoucna:** Kdyby systém časem vyrostl, dají se díky rozdělení jednotlivé služby docela snadno odebrat a předělat na samostatné mikroslužby. Půjde to vyřešit běžným refactoringem a nebude nutné přepisovat celou aplikaci úplně od začátku.
+1. **Jasné rozdělení úkolů a snadná údržba:** Aplikace je logicky rozdělena na tři části: API (prezentační vrstva), byznys logiku (jádro) a datovou vrstvu. Praxe ukazuje, že toto striktní rozdělení zodpovědností (Separation of Concerns) výrazně zrychluje implementaci nových funkcí a usnadňuje údržbu kódu. Zároveň mi to umožňuje testovat hlavní logiku odděleně pomocí testovacích dvojníků (Fake databáze v paměti).
+2. **Přiměřenost k zadání (Oproti mikroslužbám):** Jak uvádějí oborová srovnání architektonických vzorů, která jsem četla, jsou mikroslužby ideální pro masivní a vysoce komplexní systémy a přinášejí výhody velkým týmům. U menších projektů však znamenají zbytečnou práci a komplexnost navíc. Vrstvená architektura naopak nabízí zjednodušené nasazení (deployment) a údržbu, což naprosto přesně odpovídá rozsahu této práce. Nemusím tak řešit složitou síťovou komunikaci a problémy s konzistencí dat napříč službami.
+3. **Flexibilita do budoucna:** Vrstvený přístup funguje jako ideální odrazový můstek. Pokud by v budoucnu systém čelil extrémní zátěži a narazil na limity v propustnosti, díky čistému rozhraní mezi vrstvami lze jednotlivé moduly postupně vyčlenit a překlopit do mikroslužeb. Není tak nutné zahodit celý projekt a psát jej od začátku.
 
 ## 2.2 Diagram komponent a interakcí
 Následující diagram znázorňuje hlavní komponenty systému a toky dat mezi nimi. Zahrnuje komunikaci od uživatelského rozhraní přes API až po databázi a externí služby.
