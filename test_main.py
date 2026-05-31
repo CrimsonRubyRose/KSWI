@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from main import app, db_cars  # Předpokládá se, že hlavní kód je v main.py
+from main import app, db_cars  # hlavní kód je v main.py
 
 # Fixture vytvoří testovacího klienta v kontrolovaném prostředí
 @pytest.fixture
