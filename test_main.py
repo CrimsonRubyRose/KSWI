@@ -58,5 +58,5 @@ def test_release_nonexistent_car_fails(client):
 
 if __name__ == "__main__":
     # Spuštění testů přímo ze skriptu
-    # Přidáno ignorování varování protože si pytest stěžuje že je modul už importovaný. (Triviální a nedůležité) 
+    #  ignorování varování (není ale potřeba)
     pytest.main(["-v", "-W", "ignore::pytest.PytestAssertRewriteWarning", __file__])
