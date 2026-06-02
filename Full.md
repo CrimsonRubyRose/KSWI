@@ -182,10 +182,11 @@ Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků
 
 ## 1.6 Konfliktní požadavky a nejasnosti během analýzy
 
-**1. Konflikt: Zobrazení historie jízd (F06) vs. Ochrana osobních dat / GDPR (N04)**
-* **Identifikovaná nejasnost:** Systém musí pro uživatele a administrátory zaznamenávat přesnou trasu jízdy kvůli reklamacím. Dlouhodobé uchovávání přesných GPS bodů pohybu konkrétní osoby je však z hlediska ochrany soukromí a legislativy GDPR nepřípustné.
-* **Navržené řešení:** Systém bude uchovávat detailní GPS trasu na mapě pouze po dobu 30 dnů od ukončení jízdy (kvůli vyřešení případných reklamací v rámci administrátorského bodu UC8). Poté se detailní souřadnice z databáze automaticky a nevratně smažou. V historii uživatele (F06) zůstane pouze agregovaný záznam: Datum, celkový čas, start, cíl, ujetá vzdálenost a výsledná cena.
-
+**1. Konflikt: Zobrazení historie jízd (F06) a Auditní logování  (N05) vs. Ochrana osobních dat / GDPR (N04)**
+* **Identifikovaná nejasnost:** Systém musí pro uživatele a administrátory zaznamenávat přesnou trasu jízdy kvůli reklamacím. Dlouhodobé uchovávání přesných GPS bodů pohybu konkrétní osoby je však z hlediska ochrany soukromí a legislativy GDPR nepřípustné. Auditní logování má stejný problém.
+* **Navržené řešení F06:** Systém bude uchovávat detailní GPS trasu na mapě pouze po dobu 30 dnů od ukončení jízdy (kvůli vyřešení případných reklamací v rámci administrátorského bodu UC8). Poté se detailní souřadnice z databáze automaticky a nevratně smažou. V historii uživatele (F06) zůstane pouze agregovaný záznam: Datum, celkový čas, start, cíl, ujetá vzdálenost a výsledná cen. 
+* **Navržené řešení N05:** Auditní logy využijí princip maskování a minimalizace dat. Místo plných osobních údajů se budou ukládat pouze částečné identifikátory (např. systémové ID nebo poslední 4 číslice karty). To umožní zpětné řešení technických problémů a podvodů bez zbytečného hromadění citlivých informací.
+  
 **2. Konflikt: Správa rolí/Zvýšení privilegií (F03) vs. Bezpečnost a GDPR (N04)**
 * **Identifikovaná nejasnost:** Existence administrátorské role s právem měnit oprávnění (F03) vytváří obrovské bezpečnostní riziko. Pokud by útočník zneužil systém pro neoprávněné zvýšení svých privilegií, získal by plný přístup k citlivým osobním údajům zákazníků, což by vedlo k okamžitému porušení GDPR (N04).
 * **Navržené řešení:** Změna rolí a povyšování uživatelů na administrátory nebude možná běžným uživatelem a bude logována.
