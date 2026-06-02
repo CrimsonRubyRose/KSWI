@@ -149,7 +149,7 @@ flowchart TD
 Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků v systému:
 * **Zákazník:** Koncový řidič elektromobilu. Vyžaduje spolehlivost a rychlost klíčových funkcí (rezervace, odemčení).
 * **Business:** Vedení firmy financující projekt. Definuje požadavky zajišťující ziskovost a stabilitu (fakturace, dostupnost).
-* **Technik / Provoz:** Interní tým starající se o auta v terénu. Vyžaduje telemetrická data (baterie, servisní režim).
+* **Technik / Provoz:** Interní tým zajišťující správu vozového parku. Technik se stará o fyzickou údržbu aut v terénu a servisu, zatímco provoz (dispečink) celkově sleduje a mění stavy vozidel podle potřeby. Z tohoto důvodu role vyžaduje přístup k telemetrickým datům (stav baterie) a možnost ovládat servisní režim.
 * **Architekt:** Hlavní softwarový návrhář. Definuje interní technické a mimofunkční požadavky (šifrování, robustnost).
 * **Legislativa:** Právní rámec a státní nařízení. Diktuje povinné shody s předpisy (GDPR).
 * **UX (User Experience):** Návrhář uživatelského rozhraní. Zaměřuje se na přívětivost systému (vizualizace na mapě).
