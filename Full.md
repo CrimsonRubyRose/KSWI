@@ -256,7 +256,7 @@ graph TD
 Pro implementaci klíčové komponenty byl zvolen jazyk Python a webový framework FastAPI. Vybranou komponentou je **Rezervační služba (ReservationService)**, která ověřuje dostupnost vozidel a mění jejich stavy.
 
 ## 3.1 Komunikace komponent
-Protože se jedná o minimální implementaci bez reálné databáze a externích služeb, je komunikace mezi komponentami simulována výpisem do konzole. Komponenta tak v reálném čase reportuje akce prováděné v okolních subsystémech.
+Protože se jedná o minimální implementaci bez reálné databáze a externích služeb, je komunikace mezi komponentami simulována výpisem do konzole. Komponenta tak v reálném čase reportuje akce prováděné v okolních "subsystémech".
 
 **Příklad výstupu v konzoli při úspěšné rezervaci:**
 ```text
