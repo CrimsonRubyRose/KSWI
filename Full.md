@@ -83,7 +83,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     Start((Start)) --> Plug[Technik připojí auto do nabíječky]
-    Plug --> Scan[Naskenuje QR kód auta v servisní aplikaci]
+    Plug --> Scan[Vybere vozidlo v apce]
     Scan --> Confirm[Potvrdí zahájení nabíjení]
     Confirm --> UpdateStatus[Systém změní stav na 'Nabíjí se']
     UpdateStatus --> End((Konec))
