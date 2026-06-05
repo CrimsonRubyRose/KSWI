@@ -146,7 +146,7 @@ flowchart TD
 ```
 
 ### 1.3 Zdroje požadavků (Stakeholders)
-Zde je popis našich zdrojů, které definují hodnotu jednotlivých požadavků v systému:
+Zde je popis zdrojů, které definují hodnotu jednotlivých požadavků v systému:
 * **Zákazník:** Koncový řidič elektromobilu. Vyžaduje spolehlivost a rychlost klíčových funkcí (rezervace, odemčení).
 * **Business:** Vedení firmy financující projekt. Definuje požadavky zajišťující ziskovost a stabilitu (fakturace, dostupnost).
 * **Technik / Provoz:** Interní tým zajišťující správu vozového parku. Technik se stará o fyzickou údržbu aut v terénu a servisu, zatímco provoz (dispečink) celkově sleduje a mění stavy vozidel podle potřeby. Z tohoto důvodu role vyžaduje přístup k telemetrickým datům (stav baterie) a možnost ovládat servisní režim.
@@ -361,7 +361,7 @@ Při návrhu testovacích případů kombinujeme dvě základní metodiky testov
 Zaměřuje se na to, **co** ten systém dělá a zda správně plní zadané požadavky.
 
 * **Unit tests (Jednotkové testy):** Testují izolované funkce (např. matematický výpočet ceny za jízdu nebo test na sčítání) pomocí metody **Whitebox**.
-* **Integration tests (Integrační testy):** Ověřují vzájemnou komunikaci mezi komponentami (např. propojení funkce a databáze nebo API a platební brány). V této fázi se často používají testovací dvojníci (test doubles) – v naší implementaci je to slovník `db_cars` v paměti fungující jako **Fake**.
+* **Integration tests (Integrační testy):** Ověřují vzájemnou komunikaci mezi komponentami (např. propojení funkce a databáze nebo API a platební brány). V této fázi se často používají testovací dvojníci (test doubles) – v mé implementaci je to slovník `db_cars` v paměti fungující jako **Fake**.
 * **End to end tests (E2E / Systémový test):** Simuluje průchod celým systémem z pohledu uživatele pomocí metody **Blackbox**. Testuje se kompletní scénář, například zda lze vybrat auto, provést rezervaci a zkusit, zda vše funguje od začátku do konce (obdoba vložení věci do nákupního košíku v e-shopech).
 * **Alpha / Beta / Acceptance test (Akceptační testování):** Závěrečný test, kdy zákazník testuje software. Pokud ho potvrdí, software je nasazen (deploynutý). Má tyto fáze:
     * **Alpha test:** Testování, jak systém běží interně na firemním hardwaru (HW).
@@ -414,7 +414,7 @@ Systém je navržen tak, aby umožňoval budoucí rozšiřování. Pro další i
 
 ### 1. Integrace s MHD (Městská hromadná doprava)
 * **Popis:** Uživatel si bude moci zakoupit kombinovaný lístek, který mu umožní dojet tramvají či autobusem k nejbližšímu volnému elektromobilu.
-* **Dopad na architekturu a kód:** Bude nutné přidat novou komponentu `TransitIntegrationService`, která bude přes externí API komunikovat s dopravním podnikem. V databázi přibude nová entita `KombinovanaRezervace`. Logika naší komponenty `ReservationService` se bude muset rozšířit o schopnost rezervovat vozidlo s odloženým startem (po dobu, než uživatel k autu dojede hromadnou dopravou).
+* **Dopad na architekturu a kód:** Bude nutné přidat novou komponentu `TransitIntegrationService`, která bude přes externí API komunikovat s dopravním podnikem. V databázi přibude nová entita `KombinovanaRezervace`. Logika komponenty `ReservationService` se bude muset rozšířit o schopnost rezervovat vozidlo s odloženým startem (po dobu, než uživatel k autu dojede hromadnou dopravou).
 
 ### 2. Dynamická cenotvorba (Surge Pricing)
 * **Popis:** V době dopravní špičky nebo nepříznivého počasí (deště) se cena za minutu jízdy automaticky zvýší. Pokud má auto nízký stav baterie a uživatel ho po ukončení jízdy zapojí do nabíječky, dostane naopak slevu.
