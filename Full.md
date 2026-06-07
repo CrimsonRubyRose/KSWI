@@ -145,7 +145,7 @@ flowchart TD
     UpdateSystem --> End((Konec))
 ```
 
-### 1.3 Zdroje požadavků (Stakeholders)
+### 1.3 Zdroje požadavků 
 Zde je popis zdrojů, které definují hodnotu jednotlivých požadavků v systému:
 * **Zákazník:** Koncový řidič elektromobilu. Vyžaduje spolehlivost a rychlost klíčových funkcí (rezervace, odemčení).
 * **Business:** Vedení firmy financující projekt. Definuje požadavky zajišťující ziskovost a stabilitu (fakturace, dostupnost).
