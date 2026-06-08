@@ -4,36 +4,41 @@
 ## 1.1 Diagram případů užití (Use Case)
 Tento diagram definuje interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
 
-```mermaid
 graph LR
-    subgraph Role
-        U[Běžný uživatel]
-        T[Servisní technik]
-        A[Administrátor]
-    end
-
+    U[Běžný uživatel]
+    
     subgraph "Systém sdílení aut"
         U --- UC1(Vyhledat auto na mapě)
         U --- UC1b(Zobrazit informace a stav auta)
         U --- UC2(Rezervovat auto)
         U --- UC3(Zobrazit historii jízd)
+    end
 
+graph LR
+    T[Servisní technik]
+    
+    subgraph "Systém sdílení aut"
         T --- UC4(Zaevidovat nabití baterie)
         T --- UC5(Odebrat auto z mapy k servisu)
         T --- UC6(Zobrazit vybitá a rozbitá auta)
+    end
 
+
+graph LR
+    A[Administrátor]
+    
+    subgraph "Systém sdílení aut"
         A --- UC7(Zablokovat nebo odblokovat uživatele)
         A --- UC8(Vyřešit reklamace a faktury)
         A --- UC9(Změnit cenu za minutu jízdy)
     end
-```
-
+    
 ## 1.2 Diagramy aktivit
 Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
 
 ### Role: Běžný uživatel
 
-**UC Běžného uživatele 1: Vyhledat auto na mapě**
+**AD Běžného uživatele 1: Vyhledat auto na mapě**
 ```mermaid
 flowchart TD
     Start((Start)) --> Open[Otevření aplikace]
@@ -43,7 +48,7 @@ flowchart TD
     Display --> End((Konec))
 ```
 
-**UC Běžného uživatele 1.1: Zobrazit informace a stav auta**
+**AD Běžného uživatele 1.1: Zobrazit informace a stav auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> Click[Kliknutí na ikonu auta na mapě]
@@ -52,7 +57,7 @@ flowchart TD
     Show --> End((Konec))
 ```
 
-**UC Běžného uživatele 2: Rezervovat auto**
+**AD Běžného uživatele 2: Rezervovat auto**
 ```mermaid
 flowchart TD
     Start((Start)) --> Select[Uživatel klikne na Rezervovat]
@@ -67,7 +72,7 @@ flowchart TD
     Cancel --> End
 ```
 
-**UC Běžného uživatele 3: Zobrazit historii jízd**
+**AD Běžného uživatele 3: Zobrazit historii jízd**
 ```mermaid
 flowchart TD
     Start((Start)) --> Profile[Otevření profilu uživatele]
@@ -79,7 +84,7 @@ flowchart TD
 
 ### Role: Servisní technik
 
-**UC Servisního technika 1: Zaevidovat nabití baterie**
+**AD Servisního technika 1: Zaevidovat nabití baterie**
 ```mermaid
 flowchart TD
     Start((Start)) --> Plug[Technik připojí auto do nabíječky]
@@ -89,7 +94,7 @@ flowchart TD
     UpdateStatus --> End((Konec))
 ```
 
-**UC Servisního technika 2: Odebrat auto z mapy k servisu**
+**AD Servisního technika 2: Odebrat auto z mapy k servisu**
 ```mermaid
 flowchart TD
     Start((Start)) --> FindCar[Nalezení poškozeného auta v aplikaci]
@@ -100,7 +105,7 @@ flowchart TD
     Hide --> End((Konec))
 ```
 
-**UC Servisního technika 3: Zobrazit vybitá a rozbitá auta**
+**AD Servisního technika 3: Zobrazit vybitá a rozbitá auta**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenApp[Otevření servisního panelu]
@@ -112,7 +117,7 @@ flowchart TD
 
 ### Role: Administrátor
 
-**UC Administrátora 1: Zablokovat nebo odblokovat uživatele**
+**AD Administrátora 1: Zablokovat nebo odblokovat uživatele**
 ```mermaid
 flowchart TD
     Start((Start)) --> SearchUser[Vyhledání uživatele podle jména/ID]
@@ -122,7 +127,7 @@ flowchart TD
     UpdateAcc --> End((Konec))
 ```
 
-**UC Administrátora 2: Vyřešit reklamace a faktury**
+**AD Administrátora 2: Vyřešit reklamace a faktury**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenTicket[Otevření podané reklamace]
@@ -135,7 +140,7 @@ flowchart TD
     CloseTicket --> End((Konec))
 ```
 
-**UC Administrátora 3: Změnit cenu za minutu jízdy**
+**AD Administrátora 3: Změnit cenu za minutu jízdy**
 ```mermaid
 flowchart TD
     Start((Start)) --> OpenSettings[Otevření globálního nastavení cen]
