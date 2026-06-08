@@ -7,6 +7,7 @@ Tyto diagramy definují interakce mezi jednotlivými rolemi uživatelů a systé
 ```mermaid
 graph LR
     U[Běžný uživatel]
+    subgraph "UC běžného uživatele"
         U --- UC1(Vyhledat auto na mapě)
         U --- UC1b(Zobrazit informace a stav auta)
         U --- UC2(Rezervovat auto)
@@ -18,6 +19,7 @@ graph LR
 ```mermaid
 graph LR
     T[Servisní technik]
+    subgraph "UC Servisního technika"
         T --- UC4(Zaevidovat nabití baterie)
         T --- UC5(Odebrat auto z mapy k servisu)
         T --- UC6(Zobrazit vybitá a rozbitá auta)
@@ -28,12 +30,12 @@ graph LR
 ```mermaid
 graph LR
     A[Administrátor]
+    subgraph "UC Administrátora"
         A --- UC7(Zablokovat nebo odblokovat uživatele)
         A --- UC8(Vyřešit reklamace a faktury)
         A --- UC9(Změnit cenu za minutu jízdy)
     end
 ```
-    
 ## 1.2 Diagramy aktivit
 Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
 
