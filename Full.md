@@ -36,7 +36,7 @@ graph LR
         A --- UC9(Změnit cenu za minutu jízdy)
     end
 ```
-## 1.2 Diagramy aktivit
+## 1.2 Diagramy aktivit (Activity diagrams)
 Zde jsou rozkresleny jednotlivé diagramy aktivit krok za krokem z pohledu jednotlivých rolí v systému.
 
 ### Role: Běžný uživatel
