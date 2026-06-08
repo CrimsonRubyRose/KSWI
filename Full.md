@@ -37,7 +37,7 @@ graph LR
     end
 ```
 ## 1.2 Diagramy aktivit
-Níže jsou rozkresleny jednotlivé případy užití krok za krokem z pohledu jednotlivých rolí v systému.
+Zde jsou rozkresleny jednotlivé diagramy aktivit krok za krokem z pohledu jednotlivých rolí v systému.
 
 ### Role: Běžný uživatel
 
