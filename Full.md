@@ -1,7 +1,7 @@
 # 1. Inženýrství požadavků
 
 ## 1.1 Diagramy případů užití (Use Case) podle rolí
-Tyto diagramy definují interakce mezi jednotlivými rolemi uživatelů a systémem pro správu elektromobilů.
+Tyto diagramy ukazují minimálně 3 případy užití ke každé roly.
 
 ### 1. Běžný uživatel
 ```mermaid
