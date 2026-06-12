@@ -318,7 +318,7 @@ Výsledek: {"detail":"Vozidlo není k dispozici."}
 **5. Neúspěšné odeslání auta do servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
 ```bash
-curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: application/json"
+curl -X POST "http://127.0.0.1:8000/service/999?reason=Defekt" -H "accept: application/json"
 ```
 Výsledek: {"detail":"Vozidlo nenalezeno."}
 
