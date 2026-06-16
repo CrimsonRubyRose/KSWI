@@ -167,7 +167,7 @@ Zde je popis zdrojů, které definují hodnotu jednotlivých požadavků v syst�
 
 | ID | Požadavek | Popis | Priorita | Zdroj | Rizika | Závislosti |
 |:---|:---|:---|:---:|:---|:---|:---|
-| **F01** | Rezervace vozidla | Uživatel si může zablokovat auto pro sebe skrze aplikaci. | High | Zákazník | Race condition (duplicitní rezervace) | F02 |
+| **F01** | Rezervace vozidla | Uživatel si může zablokovat auto pro sebe skrze aplikaci. | High | Zákazník | duplicitní rezervace | F02 |
 | **F02** | Sledování stavu | Systém eviduje stavy: volné, rezervované, v servisu. | High | Provoz | Nekoherentní data v databázi | - |
 | **F03** | Správa uživatelů | Administrátor může měnit role a oprávnění uživatelů. | Medium | Administrátor | Neoprávněné zvýšení privilegií | - |
 | **F04** | Integrace map | Zobrazení polohy a dostupnosti aut na mapovém podkladu. | Medium | Zákazník | Výpadek externí mapové služby (API) | F02 |
