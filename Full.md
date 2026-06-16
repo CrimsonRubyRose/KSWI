@@ -65,10 +65,10 @@ flowchart TD
 flowchart TD
     Start((Start)) --> Select[Uživatel klikne na Rezervovat]
     Select --> Check{Je auto stále volné?}
-    Check -- Ne --> Error[Zobrazení chyby: Auto je obsazené]
+    Check -- Ne --> Error[Zobrazení chybové hlášky]
     Check -- Ano --> Lock[Dočasná blokace vozidla v DB]
     Lock --> Pay{Ověření platební karty}
-    Pay -- Zamítnuto --> Cancel[Zrušení blokace]
+    Pay -- Zamítnuto --> Cancel[Zrušení blokace a zobrazení chybové hlášky]
     Pay -- Schváleno --> Confirm[Potvrzení rezervace a spuštění odpočtu]
     Confirm --> End((Konec))
     Error --> End
