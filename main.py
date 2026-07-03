@@ -4,7 +4,7 @@ import datetime
 
 app = FastAPI(title="EV Sharing API")
 
-# --- DATOVÁ VRSTVA  (Testovací dvojník FAKE za databázi)---
+#   DATABÁZE
 db_cars = {
     1: {"id": 1, "model": "Škoda Enyaq", "status": "volné", "battery": 85},
     2: {"id": 2, "model": "Tesla Model 3", "status": "v servisu", "battery": 15},
@@ -15,7 +15,7 @@ class ReservationRequest(BaseModel):
     user_id: int
     car_id: int
 
-# --- KOMPONENTA: Rezervační služba (Úkol 3) ---
+#   KOMPONENTA: Rezervační služba (Úkol 3) 
 class ReservationService:
     @staticmethod
     def create_reservation(user_id: int, car_id: int) -> dict:
@@ -62,7 +62,9 @@ class ReservationService:
     def set_to_service(car_id: int, reason: str = "Nespecifikováno") -> dict:
         print(f"\n[START] Odeslání auta {car_id} do servisu")
         car = db_cars.get(car_id)
-        
+        if car["status"] != "volné":
+            raise ValueError("Vozidlo není k dispozici.")
+
         if not car:
             print(f"[ERROR] Auto {car_id} neexistuje.")
             raise ValueError("Vozidlo nenalezeno.")
@@ -80,7 +82,7 @@ class ReservationService:
             "details": car
         }
 
-# --- ENDPOINTY (REST API Controller) ---
+#  REST API Controller
 
 @app.post("/reserve")
 async def reserve_car(request: ReservationRequest):
@@ -102,7 +104,56 @@ async def release_car(car_id: int):
         return ReservationService.release_car(car_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    
+@app.get("/cars")
+async def get_all_cars():
+    return db_cars
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+#    uvicorn.run(app, host="0.0.0.0", port=8000) # TOTO PAK ODKOMENTOVAT!!  Komentováne pro Ukázku "konzole" 
+## Připomínka použít http://0.0.0.0:8000/docs    
+
+
+
+#     Ukázka konzole
+
+
+# 1. Úspěšná rezervace volného vozidla
+    try:
+        ReservationService.create_reservation(user_id=42, car_id=1)
+    except ValueError as e:
+        print(f"Chyba: {e}")
+
+    # 2. Pokus o rezervaci vozidla, které je v servisu (selhání)
+    try:
+        ReservationService.create_reservation(user_id=99, car_id=2)
+    except ValueError as e:
+        print(f"Zachycena výjimka: {e}")
+
+        # 3. Uvolnění auta 1
+    try:
+        ReservationService.release_car(car_id=1)
+    except ValueError as e:
+        print(f"Chyba: {e}")
+
+
+
+    # 4. Odeslání vozidla do servisu z důvodu poruchy
+    try:
+        ReservationService.set_to_service(car_id=1, reason="Nízký tlak v pneumatikách")
+    except ValueError as e:
+        print(f"Chyba: {e}")
+
+    # 5. Krok 4 ale auto není volné protože je v servisu
+    try:
+        ReservationService.set_to_service(car_id=1, reason="Nízký tlak v pneumatikách")
+    except ValueError as e:
+        print(f"Chyba: {e}")
+
+    # 6. Uvolnění vozidla ze servisu zpět do oběhu
+    try:
+        ReservationService.release_car(car_id=1)
+    except ValueError as e:
+        print(f"Chyba: {e}")
+
