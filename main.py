@@ -95,9 +95,10 @@ class ReservationService:
 #  REST API Controller
 
 @app.post("/reserve")
-async def reserve_car(request: ReservationRequest):
+async def reserve_car(user_id: int, car_id: int):
     try:
-        return ReservationService.create_reservation(request.user_id, request.car_id)
+        # Tady už nepíšeme request.user_id, ale rovnou user_id
+        return ReservationService.create_reservation(user_id, car_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     
