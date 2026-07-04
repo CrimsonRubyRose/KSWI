@@ -18,7 +18,7 @@ def setup_function():
 
 def test_reserve_available_car_success(client):
     """Test 1: Úspěšná rezervace volného vozidla."""
-    response = client.post("/reserve", json={"user_id": 42, "car_id": 1})
+    response = client.post("/reserve?user_id=42&car_id=1") 
     assert response.status_code == 200
     assert db_cars[1]["status"] == "rezervováno"
 
@@ -36,7 +36,7 @@ def test_send_to_service_and_fix_it(client):
     assert db_cars[1]["status"] == "v servisu"
 
     # 2. Zkusíme ho rezervovat (mělo by selhat)
-    res_fail = client.post("/reserve", json={"user_id": 99, "car_id": 1})
+    res_fail = client.post("/reserve?user_id=99&car_id=1") 
     assert res_fail.status_code == 400
 
     # 3. uvolníme zpět do provozu
@@ -46,7 +46,7 @@ def test_send_to_service_and_fix_it(client):
 
 def test_reserve_nonexistent_car_fails(client):
     """Test 4: Pokus o rezervaci neexistujícího auta."""
-    response = client.post("/reserve", json={"user_id": 42, "car_id": 999})
+    response = client.post("/reserve?user_id=42&car_id=999")
     assert response.status_code == 400
 
 def test_release_nonexistent_car_fails(client):
