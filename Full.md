@@ -103,7 +103,7 @@ flowchart TD
     Start((Start)) --> FindCar[Nalezení poškozeného auta v aplikaci]
     FindCar --> ClickService[Kliknutí na 'Přepnout do servisu']
     ClickService --> Reason[Zadání důvodu odstávky]
-    Reason --> UpdateDB[Auto se v DB přepne na 'Mimo provoz']
+    Reason --> UpdateDB[Auto se v DB přepne na 'v servisu']
     UpdateDB --> Hide[Auto zmizí z mapy běžným uživatelům]
     Hide --> End((Konec))
 ```
