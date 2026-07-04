@@ -55,7 +55,7 @@ class ReservationService:
         # Jednoduchá změna stavu
         puvodni_stav = car["status"]
         car["status"] = "volné"
-        car["userid"] = "Žádné" 
+        car["userid"] = None
         
         print(f"[LOG - Databáze] Změna stavu z '{puvodni_stav}' na 'volné'.")
         print(f"[LOG - Fakturační služba] Jízda uzavřena, záznam uložen.")
