@@ -105,7 +105,7 @@ async def reserve_car(user_id: int, car_id: int):
 
 
 
-@app.post("/service/{car_id}")
+@app.post("/service")
 async def send_to_service(car_id: int, reason: str = "Hlášena porucha uživatelem"):
     try:
         return ReservationService.set_to_service(car_id, reason)
