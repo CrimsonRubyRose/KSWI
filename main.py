@@ -55,7 +55,7 @@ class ReservationService:
         # Jednoduchá změna stavu
         puvodni_stav = car["status"]
         car["status"] = "volné"
-        car["userid"] = None
+        car["userid"] = None 
         
         print(f"[LOG - Databáze] Změna stavu z '{puvodni_stav}' na 'volné'.")
         print(f"[LOG - Fakturační služba] Jízda uzavřena, záznam uložen.")
@@ -101,19 +101,22 @@ async def reserve_car(request: ReservationRequest):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     
+
+
+
 @app.post("/service/{car_id}")
 async def send_to_service(car_id: int, reason: str = "Hlášena porucha uživatelem"):
     try:
         return ReservationService.set_to_service(car_id, reason)
     except ValueError as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e))
 
 @app.post("/release")
 async def release_car(car_id: int):
     try:
         return ReservationService.release_car(car_id)
     except ValueError as e:
-        raise HTTPException(status_code=402, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e))
     
 @app.get("/cars")
 async def get_all_cars():
