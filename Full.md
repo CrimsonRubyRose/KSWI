@@ -364,7 +364,7 @@ collected 6 items
 
 ## 5.2 Plán testování celého systému
 
-Pro zajištění kvality (QA) celého produkčního systému je navržen následující plán:
+Pro zajištění kvality (QA) máme tyto typy testů:
 
 ### Metody návrhu testů (Test Design Techniques)
 Při návrhu testovacích případů kombinujeme dvě základní metodiky testování:
