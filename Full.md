@@ -296,6 +296,7 @@ Výsledek: {"1":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85,"u
 
 **1. Rezervace auta 1:**
 Očekávaný výsledek: Úspěch
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/reserve?user_id=42&car_id=1" -H "accept: application/json"
 ```
@@ -303,6 +304,7 @@ Výsledek: {"status":"ok","message":"Rezervace vytvořena","car":{"id":1,"model"
 
 **2. Odeslání auta 1 do servisu:**
 Očekávaný výsledek: Chybová hláška: Vozidlo není k dispozici
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/service?car_id=1&reason=Defekt" -H "accept: application/json"
 ```
@@ -310,6 +312,7 @@ Výsledek: {"detail":"Vozidlo není k dispozici."}
 
 **3. Uvolnění auta ze servisu:**
 Očekávaný výsledek: Úspěch
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=1" -H "accept: application/json"
 ```
@@ -317,6 +320,7 @@ Výsledek: {"status":"ok","message":"Vozidlo bylo úspěšně uvolněno (původn
 
 **4. Neúspěšná rezervace (auto v servisu):**
 Očekávaný výsledek: Chybová hláška: Vozidlo není k dispozici
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/reserve?user_id=99&car_id=2" -H "accept: application/json"
 ```
@@ -325,6 +329,7 @@ Výsledek: {"detail":"Vozidlo není k dispozici."}
 
 **5. Neúspěšné odeslání auta do servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/service?car_id=999&reason=Defekt" -H "accept: application/json"
 ```
@@ -332,6 +337,7 @@ Výsledek: {"detail":"Vozidlo nenalezeno."}
 
 **6. Neúspěšné uvolnění auta ze servisu (neexistující auto):**
 Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno
+
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=999" -H "accept: application/json"
 ```
