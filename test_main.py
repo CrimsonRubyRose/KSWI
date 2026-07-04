@@ -31,7 +31,7 @@ def test_release_car_to_available(client):
 def test_send_to_service_and_fix_it(client):
     """Test 3: Poslání auta do servisu a jeho následné opravení."""
     # 1. Pošleme volné auto do servisu
-    response = client.post("/service/1?reason=Defekt")
+    response = client.post("/service?car_id=1&reason=Defekt")
     assert response.status_code == 200
     assert db_cars[1]["status"] == "v servisu"
 
@@ -57,7 +57,7 @@ def test_release_nonexistent_car_fails(client):
 
 def test_service_nonexistent_car_fails(client):
     """Test 6: Pokus o servisu auta, které neexistuje."""
-    response = client.post("/service/100?reason=Defekt")
+    response = client.post("/service?car_id=100&reason=Defekt")
     assert response.status_code == 404
     assert "nenalezeno" in response.json()["detail"]
 
