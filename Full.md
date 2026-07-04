@@ -346,16 +346,20 @@ Pro vytvořenou komponentu a API bylo napsáno 5 testů pomocí frameworku `pyte
 
 ```text
 ============================= test session starts =============================
-platform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0
-rootdir: C:\Users\Admin\Desktop\Schule\KSWI-main
+platform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\Admin\AppData\Local\Programs\Python\Python313\python.exe
+rootdir: c:\Users\Admin
 plugins: anyio-4.13.0
-collected 5 items          
+collected 6 items                                                                                                                                                                                                                                                    
 
-test_main.py::test_reserve_available_car_success PASSED          [ 20%]
-test_main.py::test_release_car_to_available PASSED               [ 40%]
-test_main.py::test_send_to_service_and_fix_it PASSED             [ 60%]
-test_main.py::test_reserve_nonexistent_car_fails PASSED          [ 80%]
-test_main.py::test_release_nonexistent_car_fails PASSED          [100%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_reserve_available_car_success PASSED                                                                                                                 [ 16%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_release_car_to_available PASSED                                                                                                                      [ 33%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_send_to_service_and_fix_it PASSED                                                                                                                    [ 50%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_reserve_nonexistent_car_fails PASSED                                                                                                                 [ 66%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_release_nonexistent_car_fails PASSED                                                                                                                 [ 83%]
+..\..\..\..\Desktop\Schule\4 Semester\KSWI- 5  (Git prace seminarka,Zkouška)\KSWI-main\test_main.py::test_service_nonexistent_car_fails PASSED                                                                                                                 [100%]
+
+========================================================================================================================= 6 passed in 0.08s =========================================================================================================================
+
 
 ============================== 5 passed in 0.04s ============================== 
 ```
