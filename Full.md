@@ -216,7 +216,7 @@ Následující diagram znázorňuje hlavní komponenty systému a toky dat mezi 
 ```mermaid
 graph TD
     subgraph "Klientská vrstva"
-        CLI[Konzolový klient / Postman]
+        CLI[Konzolový klient / Swagger UI]
     end
 
     subgraph "Aplikační vrstva (Backend)"
@@ -258,7 +258,7 @@ graph TD
 * **Služba správy vozidel:** Eviduje a mění stavy aut (volné, rezervované, v servisu). Komunikuje s mapovou službou pro získání a aktualizaci GPS souřadnic vozidel.
 * **Fakturační služba:** Po úspěšném ukončení jízdy vypočítá výslednou cenu na základě času jízdy a ujeté vzdálenosti.
 * **Databáze:** Data jsou uložena přímo v paměti programu pomocí Python slovníku (`db_cars`). Tento slovník v mém kódu simuluje datové úložiště vozidel a jejich stavů. V testování toto řešení funguje jako testovací dvojník typu **Fake**. V ostré produkci by se tento slovník nahradil klasickou databází (např. PostgreSQL).
-* **Klientská vrstva:** Představuje uživatelské rozhraní (např. mobilní aplikace zákazníka, webový panel admina nebo testovací nástroj Postman/CLI).
+* **Klientská vrstva:** Představuje uživatelské rozhraní (např. mobilní aplikace zákazníka, webový panel admina nebo testovací nástroj Swagger UI/CLI).
 * **Externí služby:** Systémy třetích stran, se kterými naše aplikace komunikuje, ale sama je neřídí. Patří sem například externí platební brána pro autorizaci transakcí (volaná Rezervační službou) a také externí mapová služba. 
 
 # 3. Vývoj komponent a API
