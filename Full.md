@@ -290,43 +290,46 @@ Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem.
 ```bash
 curl -X GET "http://127.0.0.1:8000/cars" -H "accept: application/json"
 ```
-Výsledek: {"1":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85},"2":{"id":2,"model":"Tesla Model 3","status":"v servisu","battery":15},"3":{"id":3,"model":"Hyundai Ioniq 5","status":"rezervováno","battery":60}}
+Výsledek: {"1":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85,"userid":null},"2":{"id":2,"model":"Tesla Model 3","status":"v servisu","battery":15,"userid":null},"3":{"id":3,"model":"Hyundai Ioniq 5","status":"rezervováno","battery":60,"userid":"4"}}
 
-**1. Rezervace:**
+**1. Rezervace auta 1:**
+Očekávaný výsledek: Úspěch
 ```bash
-curl -X POST "http://127.0.0.1:8000/reserve" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"user_id\": 42, \"car_id\": 1}"
+curl -X POST "http://127.0.0.1:8000/reserve?user_id=42&car_id=1" -H "accept: application/json"
 ```
-Výsledek: {"status":"ok","message":"Rezervace vytvořena","car":{"id":1,"model":"Škoda Enyaq","status":"rezervováno","battery":85}}
+Výsledek: {"status":"ok","message":"Rezervace vytvořena","car":{"id":1,"model":"Škoda Enyaq","status":"rezervováno","battery":85,"userid":"42"}}
 
-**2. Odeslání auta do servisu:**
+**2. Odeslání auta 1 do servisu:**
+Očekávaný výsledek: Chybová hláška: Vozidlo není k dispozici
 ```bash
-curl -X POST "http://127.0.0.1:8000/service/1?reason=Defekt" -H "accept: application/json"
+curl -X POST "http://127.0.0.1:8000/service?car_id=1&reason=Defekt" -H "accept: application/json"
 ```
-Výsledek: {"status":"ok","message":"Auto 1 bylo vyřazeno z oběhu a nahlášeno servisu.","details":{"id":1,"model":"Škoda Enyaq","status":"v servisu","battery":85}}
+Výsledek: {"detail":"Vozidlo není k dispozici."}
 
 **3. Uvolnění auta ze servisu:**
+Očekávaný výsledek: Úspěch
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=1" -H "accept: application/json"
 ```
-Výsledek: {"status":"ok","message":"Vozidlo bylo úspěšně uvolněno (původní stav: volné)","car":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85}}
+Výsledek: {"status":"ok","message":"Vozidlo bylo úspěšně uvolněno (původní stav: rezervováno)","car":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85,"userid":null}}
 
 **4. Neúspěšná rezervace (auto v servisu):**
-Očekávaný výsledek: Chybová hláška vozidlo není k dispozici
+Očekávaný výsledek: Chybová hláška: Vozidlo není k dispozici
 ```bash
-curl -X POST "http://127.0.0.1:8000/reserve" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"user_id\": 99, \"car_id\": 2}"
+curl -X POST "http://127.0.0.1:8000/reserve?user_id=99&car_id=2" -H "accept: application/json"
 ```
 Výsledek: {"detail":"Vozidlo není k dispozici."}
 
 
 **5. Neúspěšné odeslání auta do servisu (neexistující auto):**
-Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
+Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno
 ```bash
-curl -X POST "http://127.0.0.1:8000/service/999?reason=Defekt" -H "accept: application/json"
+curl -X POST "http://127.0.0.1:8000/service?car_id=999&reason=Defekt" -H "accept: application/json"
 ```
 Výsledek: {"detail":"Vozidlo nenalezeno."}
 
 **6. Neúspěšné uvolnění auta ze servisu (neexistující auto):**
-Očekávaný výsledek: Chybová hláška vozidlo nenalezeno
+Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=999" -H "accept: application/json"
 ```
