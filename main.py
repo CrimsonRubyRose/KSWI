@@ -125,7 +125,7 @@ async def get_all_cars():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) # TOTO PAK ODKOMENTOVAT!!  Komentováne pro Ukázku "konzole" 
+   # uvicorn.run(app, host="0.0.0.0", port=8000) # TOTO PAK ODKOMENTOVAT!!  Komentováne pro Ukázku "konzole" 
 ## Připomínka použít http://0.0.0.0:8000/docs    
 
 
@@ -134,41 +134,45 @@ if __name__ == "__main__":
 
 
 # 1. Úspěšná rezervace volného vozidla
-    try:
-        ReservationService.create_reservation(user_id=42, car_id=1)
-    except ValueError as e:
-        print(f"Chyba: {e}")
+
+    ReservationService.create_reservation(user_id=42, car_id=1)
+    assert db_cars[1]["status"] == "rezervováno", "Test 1 selhal: Auto 1 by mělo být rezervováno!"
+    print("Test 1 OK: Auto zarezervováno.")
 
     # 2. Pokus o rezervaci vozidla, které je v servisu (selhání)
     try:
         ReservationService.create_reservation(user_id=99, car_id=2)
+        assert False, "Test 2 selhal: Rezervace auta v servisu MĚLA vyhodit chybu, ale prošla!"
     except ValueError as e:
-        print(f"Zachycena výjimka: {e}")
+        assert str(e) == "Vozidlo není k dispozici.", f"Test 2 selhal: Vyhozena špatná hláška ({e})"
+        print("Test 2 OK: Systém správně zablokoval rezervaci auta v servisu.")
 
         # 3. Uvolnění auta 1
-    try:
-        ReservationService.release_car(car_id=1)
-    except ValueError as e:
-        print(f"Chyba: {e}")
+
+    ReservationService.release_car(car_id=1)
+    assert db_cars[1]["status"] == "volné", "Test 3 selhal: Auto 1 se po uvolnění nezměnilo na volné!"
+    print("Test 3 OK: Auto uvolněno z rezervace.")
 
 
 
     # 4. Odeslání vozidla do servisu z důvodu poruchy
-    try:
-        ReservationService.set_to_service(car_id=1, reason="Nízký tlak v pneumatikách")
-    except ValueError as e:
-        print(f"Chyba: {e}")
+
+    ReservationService.set_to_service(car_id=1, reason="Nízký tlak v pneumatikách")
+    assert db_cars[1]["status"] == "v servisu", "Test 4 selhal: Auto 1 nebylo odesláno do servisu!"
+    print("Test 4 OK: Auto odesláno do servisu.")
 
     # 5. Krok 4 ale auto není volné protože je v servisu
     try:
         ReservationService.set_to_service(car_id=1, reason="Nízký tlak v pneumatikách")
+        assert False, "Test 5 selhal: Auto už v servisu je, mělo to vyhodit chybu!"
     except ValueError as e:
-        print(f"Chyba: {e}")
+        print("Test 5 OK: Systém zabránil duplicitnímu odeslání do servisu.")
 
     # 6. Uvolnění vozidla ze servisu zpět do oběhu
-    try:
-        ReservationService.release_car(car_id=1)
-    except ValueError as e:
-        print(f"Chyba: {e}")
 
+    ReservationService.release_car(car_id=1)
+    assert db_cars[1]["status"] == "volné", "Test 6 selhal: Auto 1 nezměnilo stav ze servisu na volné!"
+    print("Test 6 OK: Auto uvolněno ze servisu zpět do provozu.")
+
+    print("--- Konec jednotkových testů ---")
 
