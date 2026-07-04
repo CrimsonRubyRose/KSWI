@@ -293,6 +293,7 @@ Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem.
 curl -X GET "http://127.0.0.1:8000/cars" -H "accept: application/json"
 ```
 Očekávaný výsledek: Zobrazení všech aut a informací o nich. <br> 
+
 Výsledek: {"1":{"id":1,"model":"Škoda Enyaq","status":"volné","battery":85,"userid":null},"2":{"id":2,"model":"Tesla Model 3","status":"v servisu","battery":15,"userid":null},"3":{"id":3,"model":"Hyundai Ioniq 5","status":"rezervováno","battery":60,"userid":"4"}}
 
 **1. Rezervace auta 1:**
