@@ -278,8 +278,11 @@ Protože se jedná o minimální implementaci bez reálné databáze a externíc
 Nad vytvořenou komponentou bylo vystaveno REST API pro komunikaci s frontendem.
 
 ## 4.1 Seznam endpointů
-* `GET /cars` - Vrací aktuální stav všech aut v databázi (pro vykreslení do mapy).
-* `POST /reserve` - Přijímá JSON s ID uživatele a ID vozidla a vytváří rezervaci.
+
+* **GET /cars** – Vrací aktuální stav všech aut v databázi (včetně jejich ID, kapacity baterie a ID aktuální rezervace) pro vykreslení do mapy.
+* **POST /reserve** – Přijímá JSON (tělo požadavku) s ID uživatele a ID vozidla. Validuje data a vytváří rezervaci (mění stav na "rezervováno" a zapisuje ID uživatele).
+* **POST /release** – Přijímá ID vozidla (jako query parametr) a uvolňuje auto z rezervace nebo ze servisu zpět do běžného oběhu (mění stav na "volné" a maže ID uživatele).
+* **POST /service/{car_id}** – Přijímá ID vozidla přímo v URL adrese a volitelný textový důvod poruchy. Vyřazuje vozidlo z oběhu a odesílá jej do servisu.
 
 ## 4.2 Ukázka volání API pomocí nástroje cURL
 
