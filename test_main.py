@@ -52,13 +52,13 @@ def test_reserve_nonexistent_car_fails(client):
 def test_release_nonexistent_car_fails(client):
     """Test 5: Pokus o uvolnění auta, které neexistuje."""
     response = client.post(f"/release?car_id=999")
-    assert response.status_code == 402
+    assert response.status_code == 404
     assert "nenalezeno" in response.json()["detail"]
 
 def test_service_nonexistent_car_fails(client):
     """Test 6: Pokus o servisu auta, které neexistuje."""
     response = client.post("/service/100?reason=Defekt")
-    assert response.status_code == 401
+    assert response.status_code == 404
     assert "nenalezeno" in response.json()["detail"]
 
 if __name__ == "__main__":
