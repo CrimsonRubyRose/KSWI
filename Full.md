@@ -113,7 +113,7 @@ flowchart TD
 flowchart TD
     Start((Start)) --> OpenApp[Otevření servisního panelu]
     OpenApp --> Filter[Zapnutí filtru 'Kritický stav']
-    Filter --> Query[Systém vyhledá auta s baterií pod 15 % nebo nahlášenou závadou]
+    Filter --> Query[Systém vyhledá auta s baterií pod 33 % nebo nahlášenou závadou]
     Query --> ShowList[Zobrazení seznamu vozidel k řešení]
     ShowList --> End((Konec))
 ```
