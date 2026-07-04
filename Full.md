@@ -345,7 +345,7 @@ Výsledek: {"detail":"Vozidlo nenalezeno."}
 ```bash
 curl -X POST "http://127.0.0.1:8000/release?car_id=999" -H "accept: application/json"
 ```
-Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno
+Očekávaný výsledek: Chybová hláška: Vozidlo nenalezeno <br>
 Výsledek: {"detail":"Vozidlo nenalezeno."}
 
 
