@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from main import app, db_cars  # hlavní kód je v main.py
+from main import app, db_cars  # kód je v main.py
 
 # Fixture vytvoří testovacího klienta v kontrolovaném prostředí
 @pytest.fixture
@@ -11,12 +11,10 @@ def setup_function():
     """Reset databáze před každým testem, abychom měli jistotu výsledků."""
     db_cars.clear()
     db_cars.update({
-        1: {"id": 1, "model": "Škoda Enyaq", "status": "volné", "battery": 85},
-        2: {"id": 2, "model": "Tesla Model 3", "status": "v servisu", "battery": 15},
-        3: {"id": 3, "model": "Hyundai Ioniq 5", "status": "rezervováno", "battery": 60}
+    1: {"id": 1, "model": "Škoda Enyaq", "status": "volné", "battery": 85, "userid": None},
+    2: {"id": 2, "model": "Tesla Model 3", "status": "v servisu", "battery": 15, "userid": None},
+    3: {"id": 3, "model": "Hyundai Ioniq 5", "status": "rezervováno", "battery": 60, "userid": "4"}
     })
-
-# HTTP Responses:  200: Úspěch         400: Chyba (Špatný požadavek)   404: Nenalezeno
 
 def test_reserve_available_car_success(client):
     """Test 1: Úspěšná rezervace volného vozidla."""
@@ -41,9 +39,10 @@ def test_send_to_service_and_fix_it(client):
     res_fail = client.post("/reserve", json={"user_id": 99, "car_id": 1})
     assert res_fail.status_code == 400
 
-    # 3. Opravíme ho (uvolníme zpět do provozu)
+    # 3. uvolníme zpět do provozu
     client.post(f"/release?car_id=1")
     assert db_cars[1]["status"] == "volné"
+
 
 def test_reserve_nonexistent_car_fails(client):
     """Test 4: Pokus o rezervaci neexistujícího auta."""
@@ -53,10 +52,16 @@ def test_reserve_nonexistent_car_fails(client):
 def test_release_nonexistent_car_fails(client):
     """Test 5: Pokus o uvolnění auta, které neexistuje."""
     response = client.post(f"/release?car_id=999")
-    assert response.status_code == 404
+    assert response.status_code == 402
+    assert "nenalezeno" in response.json()["detail"]
+
+def test_service_nonexistent_car_fails(client):
+    """Test 6: Pokus o servisu auta, které neexistuje."""
+    response = client.post("/service/100?reason=Defekt")
+    assert response.status_code == 401
     assert "nenalezeno" in response.json()["detail"]
 
 if __name__ == "__main__":
     # Spuštění testů přímo ze skriptu
-    #  ignorování varování (není ale potřeba)
+    # Přidáno ignorování varování protože si pytest stěžuje že je modul už importovaný. (Triviální a nedůležité) 
     pytest.main(["-v", "-W", "ignore::pytest.PytestAssertRewriteWarning", __file__])
